@@ -1,0 +1,185 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.pretitre {
+    font-size: 0.3em;
+}
+#condominiumView .popover {
+    width: 300px;
+    max-width: 300px;
+}
+#condominiumView #documents-table TD {
+    vertical-align: middle;
+}
+.material-icons {
+    cursor: default;
+}
+.material-icons.md-dark,
+.fas.md-dark { 
+    color: rgba(29, 168, 63);
+}
+.material-icons.md-dark.md-inactive,
+.fas.md-dark.md-inactive { 
+    color: rgba(0, 0, 0, 0.26);
+}
+.material-icons.md-dark.chr-purple,
+.fas.md-dark.chr-purple { 
+    color: #5800CC;
+}
+.material-icons.md-dark.md-inactive.chr-purple,
+.fas.md-dark.chr-purple { 
+    color: #5800CC;
+}
+.material-icons.md-dark.md-inactive.md-semiactive, 
+.fas.md-dark.md-semiactive { 
+    color: #ffc107;
+}
+
+
+.popover {
+    cursor: pointer;
+}
+
+fieldset.sag {
+    border: 0.55px rgba(0, 0, 0, 0.125) solid;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+}
+fieldset.sag legend {
+    font-size: 1rem;
+    display: inline;
+    width: auto;
+}
+.input-group > .btn + .btn-success,
+.btn-group > .btn + .btn-success,
+.input-group > .btn + .btn-outline-success:hover,
+.btn-group > .btn + .btn-outline-success:hover,
+.input-group > .btn + .btn-outline-success:focus,
+.btn-group > .btn + .btn-outline-success:focus,
+.input-group > .btn + .btn-outline-success:active,
+.btn-group > .btn + .btn-outline-success:active {
+    border-left: rgb(140, 210, 152) 1px solid; 
+}
+.input-group-append .btn-primary + .btn-primary {
+    border-left:  rgb(112, 181, 152) 1px solid; 
+}
+/*--------------------------------*/
+/* ==            BADGE            */
+/*--------------------------------*/
+
+.badge.badge-outlined {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+
+.badge.badge-outlined.badge-primary:hover,
+.badge.badge-outlined.badge-primary:hover,
+.badge.badge-outlined.badge-primary:hover{
+    background-color: #2196F3;
+    border-color: #2196F3;
+  color: white !important;
+}
+.badge.badge-outlined.badge-success:hover,
+.badge.badge-outlined.badge-success:hover,
+.badge.badge-outlined.badge-success:hover{
+    background-color: #28a745;
+    border-color: #28a745;
+  color: white !important;
+}
+.badge.badge-outlined.badge-info:hover,
+.badge.badge-outlined.badge-info:hover,
+.badge.badge-outlined.badge-info:hover{
+    background-color: #29B6F6;
+    border-color: #29B6F6;
+  color: white !important;
+}
+.badge.badge-outlined.badge-chr-purple:hover,
+.badge.badge-outlined.badge-chr-purple:hover,
+.badge.badge-outlined.badge-chr-purple:hover{
+    background-color: #5800CC;
+    border-color: #5800CC;
+  color: white !important;
+}
+
+.badge.badge-outlined.badge-default {
+  border-color: #B0BEC5;
+  color: #B0BEC5
+}
+
+.badge.badge-outlined.badge-primary {
+  border-color: #2196F3;
+  color: #2196F3
+}
+
+.badge.badge-outlined.badge-secondary {
+  border-color: #323a45;
+  color: #323a45
+}
+
+.badge.badge-outlined.badge-success {
+  border-color: #1e7e34;
+  color: #1e7e34
+}
+
+.badge.badge-outlined.badge-warning {
+  border-color: #FFD600;
+  color: #FFD600
+}
+
+.badge.badge-outlined.badge-info {
+  border-color: #29B6F6;
+  color: #29B6F6
+}
+
+.badge.badge-outlined.badge-danger {
+  border-color: #ef1c1c;
+  color: #ef1c1c
+}
+
+.badge.badge-outlined.badge-chr-purple {
+  border-color: #5800CC;
+  color: #5800CC
+}
+.text-chr-purple {
+  color: #5800CC
+}
+#documents-table {
+    border: none;
+}
+#documents-table .chr-outline-purple {
+    outline: #5800CC solid 1px
+
+}
+#documents-table TD {
+    padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+    word-wrap: break-word
+}
+#documents-table TD H2 {
+    margin: 0;
+}
+#documents-table .td-type BUTTON {
+    width: 100px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#documents-table .td-view .btn {
+    line-height: 1.1;
+}
+#documents-table .modifDocDiv TD {
+    border: none;
+}
+.input-group-sm > .chr-input-group-body > .input-group-text, 
+.input-group-sm > .chr-input-group-body > .btn {
+
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0;
+}
+.chr-input-group-body {
+
+    display: -ms-flexbox;
+    display: flex;
+}
