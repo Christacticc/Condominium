@@ -63,6 +63,19 @@ class TypeManager {
         return ($types);
     }
 
+    public function getListExcluded($excluded_types) //renvoie un tableau d'objets types, sauf les types dont le ty_name est dans le tableau $excuded.
+    {        
+        $types = [];
+        $in  = str_repeat('?,', count($excluded_types) - 1) . '?';
+        $q = $this->_db->prepare('SELECT ty_name name, ty_id id FROM s_type WHERE ty_name NOT IN (' . $in . ') ORDER BY ty_name');
+        $q->execute($excluded_types);
+        while ($data = $q->fetch(PDO::FETCH_ASSOC))
+        {
+            $types[] = new Type($data);
+        }
+        return ($types);
+    }
+
     function save($type)     {
         trigger_error('Not Implemented!', E_USER_WARNING);
     }

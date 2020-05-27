@@ -74,6 +74,19 @@ class CategoryManager {
         return ($categories);
     }
     
+    public function getListExcluded($excluded_categories) //renvoie un tableau d'objets types, sauf les types dont le ty_name est dans le tableau $excuded.
+    {        
+        $categories = [];
+        $in  = str_repeat('?,', count($excluded_categories) - 1) . '?';
+        $q = $this->_db->prepare('SELECT ca_name name, ca_id id, ca_position position FROM s_category WHERE ca_name NOT IN (' . $in . ') ORDER BY ca_position');
+        $q->execute($excluded_categories);
+        while ($data = $q->fetch(PDO::FETCH_ASSOC))
+        {
+            $categories[] = new Category($data);
+        }
+        return ($categories);
+    }
+
     public function maxPosition()
     {
         $q = $this->_db->query('SELECT MAX(ca_position) AS max_position FROM s_category');

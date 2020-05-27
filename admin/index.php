@@ -23,6 +23,8 @@ $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
 $phoupload_dir = '../pho/'; // À modifier aussi dans les ajax_...
 $pdfdownload_dir = '../pdf/';
 $phodownload_dir = '../pho/';
+$excluded_types = array('to confirm'); // Array des types à exclure des listes
+$excluded_categories = array('to confirm'); // Array des catégories à exclure des listes
 
 $userManager = new UserManager($db);
 if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet.
@@ -40,8 +42,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             $documentManager = new DocumentManager($db);
             $user1 = $userManager->get(1);
             $user2 = $userManager->get(2);
-            $categories = $categoryManager->getList();
-            $types = $typeManager->getList();
+    //            $categories = $categoryManager->getList();
+            $categories = $categoryManager->getListExcluded($excluded_categories);
+    //            $types = $typeManager->getList();
+            $types = $typeManager->getListExcluded($excluded_types);
             require('../view/backend/admin.php');
         }
         else
@@ -58,14 +62,16 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $condominiumManager = new CondominiumManager($db);
         $condominium = $condominiumManager->get($_GET['adddoc']);
         $categoryManager = new CategoryManager($db);
-        $categories = $categoryManager->getList();
         $typeManager = new TypeManager($db);
-        $types = $typeManager->getList();
+//            $categories = $categoryManager->getList();
+        $categories = $categoryManager->getListExcluded($excluded_categories);
+//            $types = $typeManager->getList();
+        $types = $typeManager->getListExcluded($excluded_types);
         $_SESSION['condominium'] = $condominium;
 
         require('../view/backend/documentAdd.php');
     }
-    elseif (isset($_GET['adddocs'])) // Si on veux ajouter un document
+    elseif (isset($_GET['adddocs'])) // Si on veux ajouter des documents
     {
         $condominiumManager = new CondominiumManager($db);
         $condominium = $condominiumManager->get($_GET['adddocs']);
@@ -77,7 +83,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 
         require('../view/backend/documentsAdd.php');
     }
-    elseif (isset($_GET['confdocs'])) // Si on veux ajouter un document
+    elseif (isset($_GET['confdocs'])) // Si on veux confirmer des documents
     {
         $condominiumManager = new CondominiumManager($db);
         $condominium = $condominiumManager->get($_GET['confdocs']);
@@ -119,31 +125,30 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $photoManager = new PhotoManager($db);
         $downloadManager = new DownloadManager($db);
 
-        if (isset($_POST['submitOpenCondo'])) // Si on veux ouvrir une copropriété en modification.
-        {
+        if (isset($_POST['submitOpenCondo'])) { // Si on veux ouvrir une copropriété en modification.
             $condominium = $condominiumManager->get($_POST['submitOpenCondo']);
             $documents = $documentManager->getList($_POST['submitOpenCondo']);
             $photos = $photoManager->getList($_POST['submitOpenCondo']);
             $categoryManager = new CategoryManager($db);
             $typeManager = new TypeManager($db);
-            $categories = $categoryManager->getList();
-            $types = $typeManager->getList();
-            if (!empty($documents))
-            {
+//            $categories = $categoryManager->getList();
+            $categories = $categoryManager->getListExcluded($excluded_categories);
+//            $types = $typeManager->getList();
+            $types = $typeManager->getListExcluded($excluded_types);
+            
+            if (!empty($documents)) {
                 $downloads_count = [];
-                foreach ($documents as $document)
-                {
+                foreach ($documents as $document) {
                  $downloads_count[$document->id()] = $downloadManager->countWithDoc($document->id());
                 }
-                
             }
 
             if ($general_assemblyManager->existsWithCondominium($_POST['submitOpenCondo']))
             {
                 $general_assembly = $general_assemblyManager->getWithCondominium($_POST['submitOpenCondo']);
             }
-            foreach ($categories as $category)
-            {
+            
+            foreach ($categories as $category) {
                 $category_var = $category->name();
                 $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
             }
@@ -151,11 +156,9 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             require('../view/backend/condominiumView.php');
             $_SESSION['condominium'] = $condominium;
         }
-        elseif (isset($_POST['submitCreateCondo']))
-        {
-            if (isset($_POST['name']) && isset($_POST['postal_code']) && isset($_POST['city']) && $_POST['city'] != '...' && isset($_POST['internal_reference']) && isset($_POST['password']))
-            {
-                // Construire $param.
+        elseif (isset($_POST['submitCreateCondo'])) {
+            if (isset($_POST['name']) && isset($_POST['postal_code']) && isset($_POST['city']) && $_POST['city'] != '...' && isset($_POST['internal_reference']) && isset($_POST['password'])) {
+                // Construire $param
                 $param = $_POST;
                 array_pop($param);
                 $city_line_5 = explode(' - ', $param['city']);
@@ -163,8 +166,6 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $param['line_5'] = isset($city_line_5[1]) ? $city_line_5[1] : "";
                 $param['featured'] = isset($_POST['featured']) ? 1 : 0;
                 $param['internal_reference'] = (string) $_POST['internal_reference'];
-
-
                 
                 $condominium = new Condominium($param); // Créer le nouvel objet
                                 
@@ -280,8 +281,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                     $photos = $photoManager->getList($condominium->id());
                                     $categoryManager = new CategoryManager($db);
                                     $typeManager = new TypeManager($db);
-                                    $categories = $categoryManager->getList();
-                                    $types = $typeManager->getList();
+                        //            $categories = $categoryManager->getList();
+                                    $categories = $categoryManager->getListExcluded($excluded_categories);
+                        //            $types = $typeManager->getList();
+                                    $types = $typeManager->getListExcluded($excluded_types);
                                     foreach ($categories as $category)
                                     {
                                         $category_var = $category->name();
@@ -295,10 +298,16 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     }
                 }
 
-            }
-            else
-            {
+            } else {
                 $msg = 'Les informations fournies n\'ont pas permis d\'enregistrer le nouveau document pour ' .$condominium->name();
+                $categoryManager = new CategoryManager($db);
+                $typeManager = new TypeManager($db);
+        //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
+                $_SESSION['condominium'] = $condominium;
+
                 require('../view/backend/documentAdd.php');
             }            
         }
@@ -382,8 +391,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                     $photos = $photoManager->getList($photo->condominium_id());
                                     $categoryManager = new CategoryManager($db);
                                     $typeManager = new TypeManager($db);
-                                    $categories = $categoryManager->getList();
-                                    $types = $typeManager->getList();
+                        //            $categories = $categoryManager->getList();
+                                    $categories = $categoryManager->getListExcluded($excluded_categories);
+                        //            $types = $typeManager->getList();
+                                    $types = $typeManager->getListExcluded($excluded_types);
                                     foreach ($categories as $category)
                                     {
                                         $category_var = $category->name();
@@ -514,8 +525,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     $documents = $documentManager->getList($condominium->id());
                     $categoryManager = new CategoryManager($db);
                     $typeManager = new TypeManager($db);
-                    $categories = $categoryManager->getList();
-                    $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                    $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                    $types = $typeManager->getListExcluded($excluded_types);
                     foreach ($categories as $category)
                     {
                         $category_var = $category->name();
@@ -561,8 +574,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     $documents = $documentManager->getList($condominium->id());
                     $categoryManager = new CategoryManager($db);
                     $typeManager = new TypeManager($db);
-                    $categories = $categoryManager->getList();
-                    $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                    $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                    $types = $typeManager->getListExcluded($excluded_types);
                     foreach ($categories as $category)
                     {
                         $category_var = $category->name();
@@ -578,8 +593,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     $documents = $documentManager->getList($condominium->id());
                     $categoryManager = new CategoryManager($db);
                     $typeManager = new TypeManager($db);
-                    $categories = $categoryManager->getList();
-                    $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                    $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                    $types = $typeManager->getListExcluded($excluded_types);
                     foreach ($categories as $category)
                     {
                         $category_var = $category->name();
@@ -596,8 +613,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $photos = $photoManager->getList($condominium->id());
                 $categoryManager = new CategoryManager($db);
                 $typeManager = new TypeManager($db);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+    //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+    //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 foreach ($categories as $category)
                 {
                     $category_var = $category->name();
@@ -636,9 +655,11 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                  
                 $documents = $documentManager->getList($condominium->id());                
                 $categoryManager = new CategoryManager($db);
-                $categories = $categoryManager->getList();
                 $typeManager = new TypeManager($db);
-                $types = $typeManager->getList();
+    //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+    //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 foreach ($categories as $category)
                 {
                     $category_var = $category->name();
@@ -716,8 +737,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $typeManager = new TypeManager($db);
                 $user1 = $userManager->get(1);
                 $user2 = $userManager->get(2);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 $user = $userManager->get($user_id);
                 $user_name = $user->name();
 
@@ -750,8 +773,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $typeManager = new TypeManager($db);
                 $user1 = $userManager->get(1);
                 $user2 = $userManager->get(2);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 require('../view/backend/admin.php');
             }
             else
@@ -791,8 +816,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     $typeManager = new TypeManager($db);
                     $user1 = $userManager->get(1);
                     $user2 = $userManager->get(2);
-                    $categories = $categoryManager->getList();
-                    $types = $typeManager->getList();
+            //            $categories = $categoryManager->getList();
+                    $categories = $categoryManager->getListExcluded($excluded_categories);
+            //            $types = $typeManager->getList();
+                    $types = $typeManager->getListExcluded($excluded_types);
                     require('../view/backend/admin.php');
                 }
                 else
@@ -830,8 +857,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $typeManager = new TypeManager($db);
                 $user1 = $userManager->get(1);
                 $user2 = $userManager->get(2);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 require('../view/backend/admin.php');
             }
             else
@@ -870,8 +899,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $typeManager = new TypeManager($db);
                 $user1 = $userManager->get(1);
                 $user2 = $userManager->get(2);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 require('../view/backend/admin.php');
             }
             else
@@ -899,8 +930,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     $typeManager = new TypeManager($db);
                     $user1 = $userManager->get(1);
                     $user2 = $userManager->get(2);
-                    $categories = $categoryManager->getList();
-                    $types = $typeManager->getList();
+            //            $categories = $categoryManager->getList();
+                    $categories = $categoryManager->getListExcluded($excluded_categories);
+            //            $types = $typeManager->getList();
+                    $types = $typeManager->getListExcluded($excluded_types);
                     require('../view/backend/admin.php');
                 }
                 else
@@ -942,8 +975,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $categoryManager = new CategoryManager($db);
                 $user1 = $userManager->get(1);
                 $user2 = $userManager->get(2);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+        //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+        //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 require('../view/backend/admin.php');
             }
             else
@@ -971,8 +1006,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 $photos = $photoManager->getList($condominium_id);
                 $categoryManager = new CategoryManager($db);
                 $typeManager = new TypeManager($db);
-                $categories = $categoryManager->getList();
-                $types = $typeManager->getList();
+    //            $categories = $categoryManager->getList();
+                $categories = $categoryManager->getListExcluded($excluded_categories);
+    //            $types = $typeManager->getList();
+                $types = $typeManager->getListExcluded($excluded_types);
                 foreach ($categories as $category)
                 {
                     $category_var = $category->name();
