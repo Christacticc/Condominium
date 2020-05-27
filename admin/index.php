@@ -68,7 +68,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
     elseif (isset($_GET['adddocs'])) // Si on veux ajouter un document
     {
         $condominiumManager = new CondominiumManager($db);
-        $condominium = $condominiumManager->get($_GET['adddoc']);
+        $condominium = $condominiumManager->get($_GET['adddocs']);
         $categoryManager = new CategoryManager($db);
         $categories = $categoryManager->getList();
         $typeManager = new TypeManager($db);
@@ -80,7 +80,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
     elseif (isset($_GET['confdocs'])) // Si on veux ajouter un document
     {
         $condominiumManager = new CondominiumManager($db);
-        $condominium = $condominiumManager->get($_GET['adddoc']);
+        $condominium = $condominiumManager->get($_GET['confdocs']);
         $categoryManager = new CategoryManager($db);
         $categories = $categoryManager->getList();
         $typeManager = new TypeManager($db);
