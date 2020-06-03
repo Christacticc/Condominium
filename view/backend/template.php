@@ -10,10 +10,18 @@
         <link href="../public/css/admin.css" rel="stylesheet">
         <link href="../vendor/bootstrap/css/bootstrap-4.4.1.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <?= $pagehead1 ?>
-        
-        <?= $pagehead2 ?>
-        
+<?php
+if ($bodyid = 'documentsAdd') {
+?>
+        <link href="../vendor/dropzone-5.7.0/dist/dropzone.css" rel="stylesheet">
+        <link href="../public/css/dropzoneCustom.css" rel="stylesheet">
+        <script src="../vendor/dropzone-5.7.0/dist/dropzone.js"></script>
+        <script>
+            Dropzone.autoDiscover = false;
+        </script>
+<?php        
+}
+?>            
     </head>
     <body id="<?= $bodyid ?>">
 <?php
@@ -37,6 +45,13 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 }
 ?>
         <?= $content ?>
+<?php
+if ($bodyid = 'documentsAdd') {
+?>
+        <script src="../public/js/dropzoneCustom.js"></script> 
+<?php        
+}
+?>            
         <script src="../public/js/ajaxGet.js"></script>
         <script src="../public/js/ajaxPost.js"></script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 

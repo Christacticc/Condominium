@@ -131,7 +131,7 @@
                 </div>
                 <div class="col-sm-2 text-right">
                             <button type="button" class="btn btn-outline-secondary btn-sm mt-1 mb-3" onClick="document.getElementById('modifDocDiv-<?= $document->id() ?>').classList.add('d-none')"  title="Fermer ce volet">&nbsp;<i class="fas fa-times"></i>&nbsp;</button>
-                            <a href="#delModal-<?= $document->id() ?>" class="btn btn-warning btn-sm mt-1 mb-3" name="submitDeleteDoc" data-toggle="modal" title="Supprimer ce document ...">&nbsp;<i class="fas fa-trash-alt"></i>&nbsp;&hellip;&nbsp;</a>
+                            <a href="#delModal-<?= $document->id() ?>" class="btn btn-warning btn-sm mt-1 mb-3" name="submitDeleteDoc" data-toggle="modal" title="Supprimer ce document…">&nbsp;<i class="fas fa-trash-alt"></i>&nbsp;&hellip;&nbsp;</a>
                 </div>
             </div>
             <!-- The Modal -->
