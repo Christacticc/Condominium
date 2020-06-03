@@ -10,7 +10,10 @@
         <link href="../public/css/admin.css" rel="stylesheet">
         <link href="../vendor/bootstrap/css/bootstrap-4.4.1.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+        <?= $pagehead1 ?>
+        
+        <?= $pagehead2 ?>
+        
     </head>
     <body id="<?= $bodyid ?>">
 <?php

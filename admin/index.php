@@ -23,9 +23,10 @@ $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
 $phoupload_dir = '../pho/'; // À modifier aussi dans les ajax_...
 $pdfdownload_dir = '../pdf/';
 $phodownload_dir = '../pho/';
-$excluded_types = array('to confirm'); // Array des types à exclure des listes
-$excluded_categories = array('to confirm'); // Array des catégories à exclure des listes
-
+$uploaded_type = 'to confirm';
+$uploaded_category = 'to confirm';
+$excluded_types = array($uploaded_type); // Array des types à exclure des listes
+$excluded_categories = array($uploaded_category); // Array des catégories à exclure des listes
 $userManager = new UserManager($db);
 if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet.
 {
@@ -76,9 +77,12 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $condominiumManager = new CondominiumManager($db);
         $condominium = $condominiumManager->get($_GET['adddocs']);
         $categoryManager = new CategoryManager($db);
-        $categories = $categoryManager->getList();
         $typeManager = new TypeManager($db);
-        $types = $typeManager->getList();
+        $existUploadedCategory = $categoryManager->existUploadedCategory($uploaded_category);
+        $existUploadedType = $typeManager->existUploadedType($uploaded_type);
+        if (!$existUploadedCategory || !$existUploadedType ) {
+            $msg .= 'L\'upload par glisser déposé ne peut pas fonctionner car la catégorie ' . $uploaded_category . ' ou/et le type ' . $uploaded_type . ' n\'existe(nt) pas dans la base' . $dbname . '.';
+        }
         $_SESSION['condominium'] = $condominium;
 
         require('../view/backend/documentsAdd.php');
@@ -88,9 +92,11 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $condominiumManager = new CondominiumManager($db);
         $condominium = $condominiumManager->get($_GET['confdocs']);
         $categoryManager = new CategoryManager($db);
-        $categories = $categoryManager->getList();
         $typeManager = new TypeManager($db);
-        $types = $typeManager->getList();
+//            $categories = $categoryManager->getList();
+        $categories = $categoryManager->getListExcluded($excluded_categories);
+//            $types = $typeManager->getList();
+        $types = $typeManager->getListExcluded($excluded_types);
         $_SESSION['condominium'] = $condominium;
 
         require('../view/backend/documentConf.php');
@@ -124,7 +130,15 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $general_assemblyManager = new General_assemblyManager($db);
         $photoManager = new PhotoManager($db);
         $downloadManager = new DownloadManager($db);
+        
+        if (!empty($_FILES)) {
+        $tmp_file = $_FILES['file']['tmp_name'];          //3             
 
+
+        $targetFile =  $pdfupload_dir. $_FILES['file']['name'];  //5
+
+        move_uploaded_file($tmp_file,$targetFile );
+        }
         if (isset($_POST['submitOpenCondo'])) { // Si on veux ouvrir une copropriété en modification.
             $condominium = $condominiumManager->get($_POST['submitOpenCondo']);
             $documents = $documentManager->getList($_POST['submitOpenCondo']);
@@ -155,8 +169,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             
             require('../view/backend/condominiumView.php');
             $_SESSION['condominium'] = $condominium;
-        }
-        elseif (isset($_POST['submitCreateCondo'])) {
+        } elseif (isset($_POST['submitCreateCondo'])) {
             if (isset($_POST['name']) && isset($_POST['postal_code']) && isset($_POST['city']) && $_POST['city'] != '...' && isset($_POST['internal_reference']) && isset($_POST['password'])) {
                 // Construire $param
                 $param = $_POST;

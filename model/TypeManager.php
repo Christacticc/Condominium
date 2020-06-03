@@ -41,6 +41,13 @@ class TypeManager {
         return (bool) $q->fetchColumn(); 
     }
 
+    public function existUploadedType($uploaded_type)
+    {
+        $q = $this->_db->prepare('SELECT COUNT(*) FROM s_type WHERE ty_name = :name');
+        $q->execute([':name' => $uploaded_type]);
+        return (bool) $q->fetchColumn(); 
+    }
+
     public function get($id)
     {
         $q = $this->_db->prepare('SELECT ty_id id, ty_name name FROM s_type WHERE ty_id = :id');

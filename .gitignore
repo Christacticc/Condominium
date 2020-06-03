@@ -4,5 +4,10 @@
 _notes/
 /bower_components/
 /node_modules/
-pdf/*
-pho/*
+pdf/**
+pho/**
+vendor/bootstrap/**
+vendor/dropzone-5.7.0/**
+admin/drop*
+* - Copie.php
+

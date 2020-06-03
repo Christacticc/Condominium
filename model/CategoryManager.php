@@ -42,6 +42,13 @@ class CategoryManager {
         return (bool) $q->fetchColumn(); 
     }
 
+    public function existUploadedCategory($uploaded_category)
+    {
+        $q = $this->_db->prepare('SELECT COUNT(*) FROM s_category WHERE ca_name = :name');
+        $q->execute([':name' => $uploaded_category]);
+        return (bool) $q->fetchColumn(); 
+    }
+
     public function get($id)     {
         $q = $this->_db->prepare('SELECT ca_id id, ca_name name, ca_position position
         FROM s_category WHERE ca_id = :id');
