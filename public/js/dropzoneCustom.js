@@ -14,7 +14,11 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
     previewTemplate: previewTemplate,
     autoQueue: false, // Make sure the files aren't queued until manually added
     previewsContainer: '#previews', // Define the container to display the previews
-    clickable: '.fileinput-button' // Define the element that should be used as click trigger to select files.
+    clickable: '.fileinput-button', // Define the element that should be used as click trigger to select files
+    maxFilesize: 10, // MB
+    dictFileTooBig: 'Ce fichier est trop gros ({{filesize}} MB). Taille maximum des fichiers : {{maxFilesize}} MB.',
+    acceptedFiles: 'application/pdf', // Equivalent à l'attribut accept.
+    dictInvalidFileType: 'Il n\'est pas possible d\'envoyer ce type de fichier. Fichiers pris en charge : pdf.'
 });
 
 myDropzone.on('addedfile', function(file) {

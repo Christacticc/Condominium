@@ -130,15 +130,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $general_assemblyManager = new General_assemblyManager($db);
         $photoManager = new PhotoManager($db);
         $downloadManager = new DownloadManager($db);
-        
-        if (!empty($_FILES)) {
-        $tmp_file = $_FILES['file']['tmp_name'];          //3             
 
-
-        $targetFile =  $pdfupload_dir. $_FILES['file']['name'];  //5
-
-        move_uploaded_file($tmp_file,$targetFile );
-        }
         if (isset($_POST['submitOpenCondo'])) { // Si on veux ouvrir une copropriété en modification.
             $condominium = $condominiumManager->get($_POST['submitOpenCondo']);
             $documents = $documentManager->getList($_POST['submitOpenCondo']);
