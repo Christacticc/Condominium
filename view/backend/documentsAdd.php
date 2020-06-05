@@ -1,7 +1,9 @@
 <?php $title = 'Ajout de document(s)'; ?>
 <?php $bodyid = 'documentsAdd'; ?>
 <?php ob_start(); ?>
-
+<script>
+    const condominium_id = <?= $condominium->id() ?>;
+</script>
 <section class="container">
     <div class="card bg-light p-2 mb-4">
         <div class="row">

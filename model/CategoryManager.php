@@ -59,6 +59,16 @@ class CategoryManager {
         return($category);
     }
 
+    public function getWithName($name)     {
+        $q = $this->_db->prepare('SELECT ca_id id, ca_name name, ca_position position
+        FROM s_category WHERE ca_name = :name');
+        $q->bindValue(':name', $name);
+        $q->execute();
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $category = new Category($data);
+        return($category);
+    }
+
     public function getWithPosition($position)     {
         $q = $this->_db->prepare('SELECT ca_id id, ca_name name, ca_position position
         FROM s_category WHERE ca_position = :position');

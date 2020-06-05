@@ -273,8 +273,8 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                     $param['tracked'] = isset($_POST['do_tracked']) ? 1 : 0;
                                     $param['type_id'] = $_POST['do_type'];
                                     $document = new Document($param); // Créer le nouvel objet
+                                    var_dump($document);
                                     $document = $documentManager->add($document);
-                                    
                                     $_SESSION['condominium'] = $condominium;
 
                                     if ($general_assemblyManager->existsWithCondominium($condominium->id()))

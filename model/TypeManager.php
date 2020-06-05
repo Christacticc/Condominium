@@ -48,6 +48,16 @@ class TypeManager {
         return (bool) $q->fetchColumn(); 
     }
 
+    public function getWithName($name)
+    {
+        $q = $this->_db->prepare('SELECT ty_id id, ty_name name FROM s_type WHERE ty_name = :name');
+        $q->bindValue(':name', $name);
+        $q->execute();
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $type = new Type($data);
+        return($type);
+    }
+
     public function get($id)
     {
         $q = $this->_db->prepare('SELECT ty_id id, ty_name name FROM s_type WHERE ty_id = :id');
