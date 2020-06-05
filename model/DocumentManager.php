@@ -25,6 +25,8 @@ class DocumentManager {
         $q->bindValue(':type_id', $document->type_id());
         $q->execute();
         
+        $id = $this->_db->lastInsertId(); // doit être immédiatement après execute
+        
         $categoryManager = new CategoryManager($this->_db);
         $category = $categoryManager->get($document->category_id());
         $condominiumManager = new CondominiumManager($this->_db);
@@ -32,7 +34,8 @@ class DocumentManager {
         $typeManager = new TypeManager($this->_db);
         $type = $typeManager->get($document->type_id());
         $document->hydrate([
-            'id' => $this->_db->lastInsertId(),
+//            'id' => $this->_db->lastInsertId(), // Ne fonctionne pas
+            'id' => $id,
             'category_name' => $category->name(),
             'condominium_name' => $condominium->name(),
             'condominium_internal_reference' => $condominium->internal_reference(),
