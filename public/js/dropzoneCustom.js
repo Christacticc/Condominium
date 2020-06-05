@@ -1,5 +1,10 @@
 // JavaScript Document
 
+function responseDeleteDocument(response) { 
+    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+}
+
+
 // Get the template HTML and remove it from the document
 var previewNode = document.querySelector('#template');
 previewNode.id = '';
@@ -81,3 +86,11 @@ myDropzone.on("success", function(file, response) {
         file.previewElement.querySelector('.delete').id = response_array['id'];
     }
 });
+
+myDropzone.on('removedfile', function(file) {
+    if (file.upload['progress'] == 100) { // si progress = 100 le fichier est uploadé.
+        const document_id = file.previewElement.querySelector('.delete').id;
+        ajaxGet('ajax_documentdelete.php?id=' + document_id, responseDeleteDocument);
+    }
+});
+
