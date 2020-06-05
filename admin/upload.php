@@ -14,7 +14,7 @@ require('../config/connect.php');
 
 $uploaded_type = 'to confirm';
 $uploaded_category = 'to confirm';
-$pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
+$pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...   
 
 $condominiumManager = new CondominiumManager($db);
 $documentManager = new DocumentManager($db);
@@ -60,14 +60,13 @@ if (!empty($_FILES) && isset($_POST['condominium_id'])) {
                         $param['tracked'] = 0;
                         $param['type_id'] = $type->id();
                         $document = new Document($param); // Créer le nouvel objet
-                        $document = $documentManager->add($document);
+                        $newdocument = $documentManager->add($document);
                         // Paires des propriétés de l'objet document retourné
-                        $document_array['file_name'] = $document->file_name();
-                        $document_array['id'] = $document->id();
+                        $document_array['file_name'] = $newdocument->file_name();
+                        $document_array['id'] = $newdocument->id();
 
                         $response = json_encode($document_array);
-                        //echo ($response);
-//var_dump($document);
+                        echo ($response);
                     } else {
                         echo($msg);                            
                     }
@@ -75,8 +74,6 @@ if (!empty($_FILES) && isset($_POST['condominium_id'])) {
             }
         }
     }
-    
-    
 } else {
     $msg = 'Les informations fournies n\'ont pas permis d\'enregistrer le nouveau document.';
     echo($msg);                            

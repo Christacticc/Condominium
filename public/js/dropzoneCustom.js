@@ -75,9 +75,8 @@ document.querySelector('#actions .cancel').onclick = function() {
 // Display additional information after a file uploaded.
 myDropzone.on("success", function(file, response) {
     console.log('Après : ' + response + ' -  typeof : ' + typeof response);
-    if (response.substr(0, 1) == '{') {
+    if (response.substr(1, 1) == '{') {
         let response_array = JSON.parse(response);
-        
         file.previewElement.querySelector('.name').innerHTML = response_array['file_name'];
         file.previewElement.querySelector('.delete').id = response_array['id'];
     }
