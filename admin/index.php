@@ -162,6 +162,18 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             require('../view/backend/condominiumView.php');
             $_SESSION['condominium'] = $condominium;
             
+        } elseif (isset($_POST['submitOpenToConfirm'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
+            $condominium = $condominiumManager->get($_POST['submitOpenToConfirm']);
+            $categoryManager = new CategoryManager($db);
+            $uploaded_category = $categoryManager->getWithName($uploaded_category_name);
+            $documents = $documentManager->getListByCategory($condominium->id(), $uploaded_category->id()); // Documents de la catégorie upoaded_category
+            $typeManager = new TypeManager($db);
+            $categories = $categoryManager->getListExcluded($excluded_categories);
+            $types = $typeManager->getListExcluded($excluded_types);
+                        
+            require('../view/backend/documentsConf.php');
+            $_SESSION['condominium'] = $condominium;
+            
         } elseif (isset($_POST['submitCreateCondo'])) {
             if (isset($_POST['name']) && isset($_POST['postal_code']) && isset($_POST['city']) && $_POST['city'] != '...' && isset($_POST['internal_reference']) && isset($_POST['password'])) {
                 // Construire $param

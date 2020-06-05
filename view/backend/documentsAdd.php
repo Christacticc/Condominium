@@ -86,6 +86,21 @@
             </div>
         </div>
     </div>
+    <div class="card bg-light p-2 mt-4 mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Ouvrir la liste des fichiers à confirmer pour <?= $condominium->name() ?>.</p>
+                </div>
+                <div class="col-sm-6 mt-2">
+                    <div class="text-right">
+                        <form method="post" name="" id="" action="index.php"><button id="submitOpenToConfirm" name="submitOpenToConfirm" class="btn btn-success" type="submit" title="Confirmer les fichiers" value="<?= $condominium->id() ?>">Confirmer les fichiers</button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </section>
 
 
