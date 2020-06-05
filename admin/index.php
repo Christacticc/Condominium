@@ -23,10 +23,10 @@ $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
 $phoupload_dir = '../pho/'; // À modifier aussi dans les ajax_...
 $pdfdownload_dir = '../pdf/';
 $phodownload_dir = '../pho/';
-$uploaded_type = 'to confirm';
-$uploaded_category = 'to confirm';
-$excluded_types = array($uploaded_type); // Array des types à exclure des listes
-$excluded_categories = array($uploaded_category); // Array des catégories à exclure des listes
+$uploaded_type_name = 'to confirm';
+$uploaded_category_name = 'to confirm';
+$excluded_types = array($uploaded_type_name); // Array des types à exclure des listes
+$excluded_categories = array($uploaded_category_name); // Array des catégories à exclure des listes
 $userManager = new UserManager($db);
 if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet.
 {
@@ -78,10 +78,10 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $condominium = $condominiumManager->get($_GET['adddocs']);
         $categoryManager = new CategoryManager($db);
         $typeManager = new TypeManager($db);
-        $existUploadedCategory = $categoryManager->existUploadedCategory($uploaded_category);
-        $existUploadedType = $typeManager->existUploadedType($uploaded_type);
+        $existUploadedCategory = $categoryManager->existUploadedCategory($uploaded_category_name);
+        $existUploadedType = $typeManager->existUploadedType($uploaded_type_name);
         if (!$existUploadedCategory || !$existUploadedType ) {
-            $msg .= 'L\'upload par glisser déposé ne peut pas fonctionner car la catégorie ' . $uploaded_category . ' ou/et le type ' . $uploaded_type . ' n\'existe(nt) pas dans la base' . $dbname . '.';
+            $msg .= 'L\'upload par glisser déposé ne peut pas fonctionner car la catégorie ' . $uploaded_category_name . ' ou/et le type ' . $uploaded_type_name . ' n\'existe(nt) pas dans la base' . $dbname . '.';
         }
         $_SESSION['condominium'] = $condominium;
 
@@ -161,6 +161,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             
             require('../view/backend/condominiumView.php');
             $_SESSION['condominium'] = $condominium;
+            
         } elseif (isset($_POST['submitCreateCondo'])) {
             if (isset($_POST['name']) && isset($_POST['postal_code']) && isset($_POST['city']) && $_POST['city'] != '...' && isset($_POST['internal_reference']) && isset($_POST['password'])) {
                 // Construire $param

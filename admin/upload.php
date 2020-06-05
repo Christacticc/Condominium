@@ -12,8 +12,8 @@ session_start(); //On appelle session_start APRÈS avoir enregistré l'autoload.
 
 require('../config/connect.php');
 
-$uploaded_type = 'to confirm';
-$uploaded_category = 'to confirm';
+$uploaded_type_name = 'to confirm';
+$uploaded_category_name = 'to confirm';
 $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...   
 
 $condominiumManager = new CondominiumManager($db);
@@ -49,8 +49,8 @@ if (!empty($_FILES) && isset($_POST['condominium_id'])) {
                     if (move_uploaded_file($tmp_file,$pdfupload_dir.$file_name )) {
                         $msg = 'L\'upload s\'est bien passé.';
                         // Récupérer les catégorie et type dont l'id n'est pas connu
-                        $category = $categoryManager->getWithName($uploaded_category);
-                        $type = $typeManager->getWithName($uploaded_type);
+                        $category = $categoryManager->getWithName($uploaded_category_name);
+                        $type = $typeManager->getWithName($uploaded_type_name);
                         // Construire $param.
                         $param['available'] = 0;
                         $param['category_id'] = $category->id();

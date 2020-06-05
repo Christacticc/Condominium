@@ -42,10 +42,10 @@ class CategoryManager {
         return (bool) $q->fetchColumn(); 
     }
 
-    public function existUploadedCategory($uploaded_category)
+    public function existUploadedCategory($uploaded_category_name)
     {
         $q = $this->_db->prepare('SELECT COUNT(*) FROM s_category WHERE ca_name = :name');
-        $q->execute([':name' => $uploaded_category]);
+        $q->execute([':name' => $uploaded_category_name]);
         return (bool) $q->fetchColumn(); 
     }
 
