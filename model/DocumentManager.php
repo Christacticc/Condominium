@@ -129,45 +129,32 @@ class DocumentManager {
         }
     }
 
-    public function getList($condominium_id, $start = -1, $limit = -1)
+    public function getList($condominium_id)
     {
         $documents = [];
-        if ($limit == -1)
-        {
-            $q = $this->_db->prepare('SELECT t.ty_name type_name, c.ca_name category_name, 
-            o.co_name condominium_name, 
-            o.co_internal_reference condominium_internal_reference, 
-            d.do_available available, 
-            d.do_fk_category_id category_id, 
-            d.do_fk_condominium_id condominium_id, 
-            d.do_creation_time creation_time, 
-            d.do_file_name file_name, 
-            d.do_id id, 
-            d.do_modification_time modification_time, 
-            d.do_name name, 
-            d.do_sort_number sort_number, 
-            d.do_tracked tracked, 
-            d.do_fk_type_id type_id 
-            FROM s_document d 
-            INNER JOIN s_type t 
-            ON d.do_fk_type_id = t.ty_id
-            INNER JOIN s_category c 
-            ON d.do_fk_category_id = c.ca_id
-            INNER JOIN s_condominium o 
-            ON d.do_fk_condominium_id = o.co_id
-            WHERE d.do_fk_condominium_id = ' . $condominium_id .'
-            ORDER BY d.do_creation_time DESC');
-        }
-        else
-        {
-            $q = $this->_db->prepare('SELECT t.ty_name type_name, c.ca_name category_name, o.co_name condominium_name, o.co_internal_reference condominium_internal_reference, d.do_available available, d.do_category_id category_id, d.do_condominium_id condominium_id, d.do_creation_time creation_time, d.do_file_name file_name, d.do_id id, d.do_modification_time modification_time, d.do_name name, d.do_sort_number sort_number, d.do_tracked tracked, d.do_type_id type_id 
-            FROM s_document d 
-            INNER JOIN s_type t ON d.do_fk_type_id = t.ty_id
-            INNER JOIN s_category c ON d.do_fk_category_id = c.ca_id
-            INNER JOIN s_condominium o ON d.do_fk_condominium_id = o.co_id
-            WHERE d.do_fk_condominium_id = ' . $condominium_id .'
-            ORDER BY d.do_creation_time DESC LIMIT '.$start.', '.$limit);
-        }
+        $q = $this->_db->prepare('SELECT t.ty_name type_name, c.ca_name category_name, 
+        o.co_name condominium_name, 
+        o.co_internal_reference condominium_internal_reference, 
+        d.do_available available, 
+        d.do_fk_category_id category_id, 
+        d.do_fk_condominium_id condominium_id, 
+        d.do_creation_time creation_time, 
+        d.do_file_name file_name, 
+        d.do_id id, 
+        d.do_modification_time modification_time, 
+        d.do_name name, 
+        d.do_sort_number sort_number, 
+        d.do_tracked tracked, 
+        d.do_fk_type_id type_id 
+        FROM s_document d 
+        INNER JOIN s_type t 
+        ON d.do_fk_type_id = t.ty_id
+        INNER JOIN s_category c 
+        ON d.do_fk_category_id = c.ca_id
+        INNER JOIN s_condominium o 
+        ON d.do_fk_condominium_id = o.co_id
+        WHERE d.do_fk_condominium_id = ' . $condominium_id .'
+        ORDER BY d.do_creation_time DESC');
         $q->execute();
         while ($data = $q->fetch(PDO::FETCH_ASSOC))
         {
