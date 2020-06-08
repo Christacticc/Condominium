@@ -55,6 +55,7 @@ else
                 <td class="text-center small" colspan="2"><strong>Publié</strong></td>
                 <td class="text-center small" colspan="2"><strong>Suivi</strong></td>
             </tr>
+        </tbody>
             
 <?php
     foreach ($documents as $document)
@@ -62,7 +63,6 @@ else
         include('../view/backend/frag_toconfirmdocumentslistrow.php');
     } //END foreach document
 ?>
-        </tbody>            
 <?php
 }
 ?>

@@ -258,11 +258,12 @@ const types = [];
                 <h1 class="h3"><span class="h6">Liste des documents</span></h1>
             </div>
             <div class="col-sm-8 my-2 text-right">
-                <div class="btn-group">
-                    <a class="btn btn-success" href="?adddoc=<?= $condominium->id() ?>">Ajouter un document</a>
-                    <a class="btn btn-success" href="?adddocs=<?= $condominium->id() ?>">Ajouter des documents</a>
-                    <a class="btn btn-outline-success" href="?confdocs=<?= $condominium->id() ?>">X docs. à confirmer</a>
-                </div>
+                <form method="post" action="index.php">
+                    <div class="btn-group">
+                    <button id="submitAddOneDoc" name="submitAddOneDoc" class="btn btn-success" type="submit" title="Ajouter un document" value="<?= $condominium->id() ?>">Ajouter un document</button>
+                    <button id="submitAddSeveralDocs" name="submitAddSeveralDocs" class="btn btn-success" type="submit" title="Ajouter plusieurs documents" value="<?= $condominium->id() ?>">Ajouter plusieurs documents</button>
+                    <button id="submitOpenToConfirm" name="submitOpenToConfirm" class="btn btn-outline-success" type="submit" title="Confirmer les fichiers" value="<?= $condominium->id() ?>">Confirmer les fichiers</button>
+                    </div></form>
             </div>
         </div>
     </div>

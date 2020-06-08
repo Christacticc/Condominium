@@ -94,7 +94,7 @@
                 </div>
                 <div class="col-sm-6 mt-2">
                     <div class="text-right">
-                        <form method="post" name="" id="" action="index.php"><button id="submitOpenToConfirm" name="submitOpenToConfirm" class="btn btn-success" type="submit" title="Confirmer les fichiers" value="<?= $condominium->id() ?>">Confirmer les fichiers</button></form>
+                        <form method="post" action="index.php"><button id="submitOpenToConfirm" name="submitOpenToConfirm" class="btn btn-success" type="submit" title="Confirmer les fichiers" value="<?= $condominium->id() ?>">Confirmer les fichiers</button></form>
                     </div>
                 </div>
             </div>

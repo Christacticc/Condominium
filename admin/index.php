@@ -58,49 +58,6 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
     {
         require('../view/backend/condominiumAdd.php');
     }
-    elseif (isset($_GET['adddoc'])) // Si on veux ajouter un document
-    {
-        $condominiumManager = new CondominiumManager($db);
-        $condominium = $condominiumManager->get($_GET['adddoc']);
-        $categoryManager = new CategoryManager($db);
-        $typeManager = new TypeManager($db);
-//            $categories = $categoryManager->getList();
-        $categories = $categoryManager->getListExcluded($excluded_categories);
-//            $types = $typeManager->getList();
-        $types = $typeManager->getListExcluded($excluded_types);
-        $_SESSION['condominium'] = $condominium;
-
-        require('../view/backend/documentAdd.php');
-    }
-    elseif (isset($_GET['adddocs'])) // Si on veux ajouter des documents
-    {
-        $condominiumManager = new CondominiumManager($db);
-        $condominium = $condominiumManager->get($_GET['adddocs']);
-        $categoryManager = new CategoryManager($db);
-        $typeManager = new TypeManager($db);
-        $existUploadedCategory = $categoryManager->existUploadedCategory($uploaded_category_name);
-        $existUploadedType = $typeManager->existUploadedType($uploaded_type_name);
-        if (!$existUploadedCategory || !$existUploadedType ) {
-            $msg .= 'L\'upload par glisser déposé ne peut pas fonctionner car la catégorie ' . $uploaded_category_name . ' ou/et le type ' . $uploaded_type_name . ' n\'existe(nt) pas dans la base' . $dbname . '.';
-        }
-        $_SESSION['condominium'] = $condominium;
-
-        require('../view/backend/documentsAdd.php');
-    }
-    elseif (isset($_GET['confdocs'])) // Si on veux confirmer des documents
-    {
-        $condominiumManager = new CondominiumManager($db);
-        $condominium = $condominiumManager->get($_GET['confdocs']);
-        $categoryManager = new CategoryManager($db);
-        $typeManager = new TypeManager($db);
-//            $categories = $categoryManager->getList();
-        $categories = $categoryManager->getListExcluded($excluded_categories);
-//            $types = $typeManager->getList();
-        $types = $typeManager->getListExcluded($excluded_types);
-        $_SESSION['condominium'] = $condominium;
-
-        require('../view/backend/documentConf.php');
-    }
     elseif (isset($_GET['addpho'])) // Si on veux ajouter une photo
     {
         $condominiumManager = new CondominiumManager($db);
@@ -161,6 +118,31 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             
             require('../view/backend/condominiumView.php');
             $_SESSION['condominium'] = $condominium;
+            
+        } elseif (isset($_POST['submitAddOneDoc'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
+            $condominium = $condominiumManager->get($_POST['submitAddOneDoc']);
+            $condominiumManager = new CondominiumManager($db);
+            $categoryManager = new CategoryManager($db);
+            $typeManager = new TypeManager($db);
+            $categories = $categoryManager->getListExcluded($excluded_categories);
+            $types = $typeManager->getListExcluded($excluded_types);
+            $_SESSION['condominium'] = $condominium;
+
+            require('../view/backend/documentAdd.php');
+            
+        } elseif (isset($_POST['submitAddSeveralDocs'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
+            $condominium = $condominiumManager->get($_POST['submitAddSeveralDocs']);
+            $condominiumManager = new CondominiumManager($db);
+            $categoryManager = new CategoryManager($db);
+            $typeManager = new TypeManager($db);
+            $existUploadedCategory = $categoryManager->existUploadedCategory($uploaded_category_name);
+            $existUploadedType = $typeManager->existUploadedType($uploaded_type_name);
+            if (!$existUploadedCategory || !$existUploadedType ) {
+                $msg .= 'L\'upload par glisser déposé ne peut pas fonctionner car la catégorie ' . $uploaded_category_name . ' ou/et le type ' . $uploaded_type_name . ' n\'existe(nt) pas dans la base' . $dbname . '.';
+            }
+            $_SESSION['condominium'] = $condominium;
+
+            require('../view/backend/documentsAdd.php');
             
         } elseif (isset($_POST['submitOpenToConfirm'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
             $condominium = $condominiumManager->get($_POST['submitOpenToConfirm']);
