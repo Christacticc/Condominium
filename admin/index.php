@@ -28,6 +28,52 @@ $uploaded_category_name = 'to confirm';
 $excluded_types = array($uploaded_type_name); // Array des types à exclure des listes
 $excluded_categories = array($uploaded_category_name); // Array des catégories à exclure des listes
 $userManager = new UserManager($db);
+
+function condominiumDisplay($condominium_id) {
+    require('../config/connect.php');
+    $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
+    $phoupload_dir = '../pho/'; // À modifier aussi dans les ajax_...
+    $pdfdownload_dir = '../pdf/';
+    $phodownload_dir = '../pho/';
+    $uploaded_type_name = 'to confirm';
+    $uploaded_category_name = 'to confirm';
+    $excluded_types = array($uploaded_type_name); // Array des types à exclure des listes
+    $excluded_categories = array($uploaded_category_name); // Array des catégories à exclure des listes
+    $condominiumManager = new CondominiumManager($db);
+    $documentManager = new DocumentManager($db);
+    $general_assemblyManager = new General_assemblyManager($db);
+    $photoManager = new PhotoManager($db);
+    $downloadManager = new DownloadManager($db);
+    $condominium = $condominiumManager->get($condominium_id);
+    $condominium = $condominiumManager->get($condominium_id);
+    $documents = $documentManager->getListExceptExcudedCategories($condominium_id, $excluded_categories);
+    $photos = $photoManager->getList($condominium_id);
+    $categoryManager = new CategoryManager($db);
+    $typeManager = new TypeManager($db);
+    $categories = $categoryManager->getListExcluded($excluded_categories);
+    $types = $typeManager->getListExcluded($excluded_types);
+
+    if (!empty($documents)) {
+        $downloads_count = [];
+        foreach ($documents as $document) {
+         $downloads_count[$document->id()] = $downloadManager->countWithDoc($document->id());
+        }
+    }
+
+    if ($general_assemblyManager->existsWithCondominium($condominium_id))
+    {
+        $general_assembly = $general_assemblyManager->getWithCondominium($condominium_id);
+    }
+
+    foreach ($categories as $category) {
+        $category_var = $category->name();
+        $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
+    }
+
+    $_SESSION['condominium'] = $condominium;
+    require('../view/backend/condominiumView.php');
+}
+
 if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet.
 {
     $user_id = $_SESSION['user'];
@@ -89,35 +135,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         $downloadManager = new DownloadManager($db);
 
         if (isset($_POST['submitOpenCondo'])) { // Si on veux ouvrir une copropriété en modification.
-            $condominium = $condominiumManager->get($_POST['submitOpenCondo']);
-            $documents = $documentManager->getList($_POST['submitOpenCondo']);
-            $photos = $photoManager->getList($_POST['submitOpenCondo']);
-            $categoryManager = new CategoryManager($db);
-            $typeManager = new TypeManager($db);
-//            $categories = $categoryManager->getList();
-            $categories = $categoryManager->getListExcluded($excluded_categories);
-//            $types = $typeManager->getList();
-            $types = $typeManager->getListExcluded($excluded_types);
-            
-            if (!empty($documents)) {
-                $downloads_count = [];
-                foreach ($documents as $document) {
-                 $downloads_count[$document->id()] = $downloadManager->countWithDoc($document->id());
-                }
-            }
-
-            if ($general_assemblyManager->existsWithCondominium($_POST['submitOpenCondo']))
-            {
-                $general_assembly = $general_assemblyManager->getWithCondominium($_POST['submitOpenCondo']);
-            }
-            
-            foreach ($categories as $category) {
-                $category_var = $category->name();
-                $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-            }
-            
-            require('../view/backend/condominiumView.php');
-            $_SESSION['condominium'] = $condominium;
+            condominiumDisplay($_POST['submitOpenCondo']);
             
         } elseif (isset($_POST['submitAddOneDoc'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
             $condominium = $condominiumManager->get($_POST['submitAddOneDoc']);
@@ -200,10 +218,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                     else
                     {
                         $condominium = $condominiumManager->add($condominium);
-                        
-                        $photos = $photoManager->getList($condominium->id());
-                        require('../view/backend/condominiumView.php');
-                        $_SESSION['condominium'] = $condominium;
+                        condominiumDisplay($condominium->id());
                    }
                 }
             }
@@ -267,31 +282,9 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                     $param['name'] = $_POST['do_name'];
                                     $param['tracked'] = isset($_POST['do_tracked']) ? 1 : 0;
                                     $param['type_id'] = $_POST['do_type'];
-                                    $document = new Document($param); // Créer le nouvel objet
-                                    var_dump($document);
+                                    $document = new Document($param);
                                     $document = $documentManager->add($document);
-                                    $_SESSION['condominium'] = $condominium;
-
-                                    if ($general_assemblyManager->existsWithCondominium($condominium->id()))
-                                    {
-                                        $general_assembly = $general_assemblyManager->getWithCondominium($condominium->id());
-                                    }
-                                    $documents = $documentManager->getList($document->condominium_id());
-                                    
-                                    $photos = $photoManager->getList($condominium->id());
-                                    $categoryManager = new CategoryManager($db);
-                                    $typeManager = new TypeManager($db);
-                        //            $categories = $categoryManager->getList();
-                                    $categories = $categoryManager->getListExcluded($excluded_categories);
-                        //            $types = $typeManager->getList();
-                                    $types = $typeManager->getListExcluded($excluded_types);
-                                    foreach ($categories as $category)
-                                    {
-                                        $category_var = $category->name();
-                                        $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                                    }
-                                    
-                                    require('../view/backend/condominiumView.php');
+                                    condominiumDisplay($condominium->id());
                                 }
                             }
                         }
@@ -379,29 +372,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                     $photo = new Photo($param); // Créer le nouvel objet                                    
                                     $photo = $photoManager->add($photo);
                                     
-                                    $_SESSION['condominium'] = $condominium;
-
-                                    if ($general_assemblyManager->existsWithCondominium($condominium->id()))
-                                    {
-                                        $general_assembly = $general_assemblyManager->getWithCondominium($condominium->id());
-                                    }
-
-                                    $documents = $documentManager->getList($photo->condominium_id());
-                                    
-                                    $photos = $photoManager->getList($photo->condominium_id());
-                                    $categoryManager = new CategoryManager($db);
-                                    $typeManager = new TypeManager($db);
-                        //            $categories = $categoryManager->getList();
-                                    $categories = $categoryManager->getListExcluded($excluded_categories);
-                        //            $types = $typeManager->getList();
-                                    $types = $typeManager->getListExcluded($excluded_types);
-                                    foreach ($categories as $category)
-                                    {
-                                        $category_var = $category->name();
-                                        $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                                    }
-                                    
-                                    require('../view/backend/condominiumView.php');
+                                    condominiumDisplay($condominium->id());
                                 }
                             }
                         }
@@ -508,6 +479,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 {
                     if ($action == 'modification')
                     {
+                        echo('modif');
                         $param['id'] = $general_assembly_id;
                         $general_assembly = new General_assembly($param); // Créer le nouvel objet
                         $general_assembly = $general_assemblyManager->update($general_assembly);
@@ -517,26 +489,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                         $general_assembly = new General_assembly($param); // Créer le nouvel objet
                         $general_assembly = $general_assemblyManager->add($general_assembly);
                     }
-                    $condominium = $condominiumManager->get($general_assembly->condominium_id());
-                    $general_assembly = $general_assemblyManager->getWithCondominium($condominium->id());
-                    
-                    $photos = $photoManager->getList($condominium->id());
-                    
-                    $documents = $documentManager->getList($condominium->id());
-                    $categoryManager = new CategoryManager($db);
-                    $typeManager = new TypeManager($db);
-        //            $categories = $categoryManager->getList();
-                    $categories = $categoryManager->getListExcluded($excluded_categories);
-        //            $types = $typeManager->getList();
-                    $types = $typeManager->getListExcluded($excluded_types);
-                    foreach ($categories as $category)
-                    {
-                        $category_var = $category->name();
-                        $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                    }
-                    
-                    require('../view/backend/condominiumView.php');
-                    $_SESSION['condominium'] = $condominium;
+                    condominiumDisplay($_POST['condominium_id']);
                 }
                 else
                 {
@@ -570,60 +523,18 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 if ($count == 1)
                 {
                     unset($general_assembly);
-                    $photos = $photoManager->getList($condominium->id());
-                    $documents = $documentManager->getList($condominium->id());
-                    $categoryManager = new CategoryManager($db);
-                    $typeManager = new TypeManager($db);
-        //            $categories = $categoryManager->getList();
-                    $categories = $categoryManager->getListExcluded($excluded_categories);
-        //            $types = $typeManager->getList();
-                    $types = $typeManager->getListExcluded($excluded_types);
-                    foreach ($categories as $category)
-                    {
-                        $category_var = $category->name();
-                        $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                    }
-
-                    require('../view/backend/condominiumView.php');
+                    condominiumDisplay($_POST['co_id']);
                 }
                 else
                 {
                     $msg = 'Un problème est survenu pendant la suppression';
-                    $photos = $photoManager->getList($condominium->id());
-                    $documents = $documentManager->getList($condominium->id());
-                    $categoryManager = new CategoryManager($db);
-                    $typeManager = new TypeManager($db);
-        //            $categories = $categoryManager->getList();
-                    $categories = $categoryManager->getListExcluded($excluded_categories);
-        //            $types = $typeManager->getList();
-                    $types = $typeManager->getListExcluded($excluded_types);
-                    foreach ($categories as $category)
-                    {
-                        $category_var = $category->name();
-                        $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                    }
-
-                    require('../view/backend/condominiumView.php');
-                    
+                    condominiumDisplay($_POST['co_id']);
                 } 
             }
             else
             {
-                $msg = 'Un problème est survenu pendant la suppression';
-                $photos = $photoManager->getList($condominium->id());
-                $categoryManager = new CategoryManager($db);
-                $typeManager = new TypeManager($db);
-    //            $categories = $categoryManager->getList();
-                $categories = $categoryManager->getListExcluded($excluded_categories);
-    //            $types = $typeManager->getList();
-                $types = $typeManager->getListExcluded($excluded_types);
-                foreach ($categories as $category)
-                {
-                    $category_var = $category->name();
-                    $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                }
-
-                require('../view/backend/condominiumView.php');
+                $msg = 'Pas d\'assemblé généale à supprimer';
+                condominiumDisplay($_POST['co_id']);
             } 
         }
         elseif (isset($_POST['submitDeletePho']))
@@ -648,25 +559,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                         $photoManager->update($photo1);
                     }
                 }
-               if ($general_assemblyManager->existsWithCondominium($condominium->id()))
-                {
-                    $general_assembly = $general_assemblyManager->getWithCondominium($condominium->id());
-                }
-                 
-                $documents = $documentManager->getList($condominium->id());                
-                $categoryManager = new CategoryManager($db);
-                $typeManager = new TypeManager($db);
-    //            $categories = $categoryManager->getList();
-                $categories = $categoryManager->getListExcluded($excluded_categories);
-    //            $types = $typeManager->getList();
-                $types = $typeManager->getListExcluded($excluded_types);
-                foreach ($categories as $category)
-                {
-                    $category_var = $category->name();
-                    $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                }
-
-                require('../view/backend/condominiumView.php');
+                condominiumDisplay($condominium->id());
             }
             else
             {
@@ -1002,33 +895,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             $remaining_count = $downloadManager->countWithDoc($document->id());
             if ($remaining_count == 0)
             {
-                $documents = $documentManager->getList($condominium_id);
-                $photos = $photoManager->getList($condominium_id);
-                $categoryManager = new CategoryManager($db);
-                $typeManager = new TypeManager($db);
-    //            $categories = $categoryManager->getList();
-                $categories = $categoryManager->getListExcluded($excluded_categories);
-    //            $types = $typeManager->getList();
-                $types = $typeManager->getListExcluded($excluded_types);
-                foreach ($categories as $category)
-                {
-                    $category_var = $category->name();
-                    $$category_var = $documentManager->getListByCategory($condominium->id(), $category->id());
-                }
-                
-                if ($general_assemblyManager->existsWithCondominium($condominium_id))
-                {
-                    $general_assembly = $general_assemblyManager->getWithCondominium($condominium_id);
-                }
-                if (!empty($documents))
-                {
-                    $downloads_count = [];
-                    foreach ($documents as $document)
-                    {
-                        $downloads_count[$document->id()] = $downloadManager->countWithDoc($document->id());
-                    }
-                }
-                require('../view/backend/condominiumView.php');                
+                condominiumDisplay($condominium_id);                
             }
             else
             {
