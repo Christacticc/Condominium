@@ -93,6 +93,8 @@ if (document.getElementById('postal_code'))
         
     }
 /*== Script de remplissage automatique du SELECT city - line_5 lors de la frappe END********/
+
+
 /*== Script de remplissage automatique du SELECT city - line_5 pour formulaire de modif BEGIN********/
 function responsePostalCodeDeal_modif(response) { // ****************************TO DO Ajouter la gestion des spinners
  //   console.log('Après : ' + response + ' -  typeof : ' + typeof response + ' - substr : ' + response.substr(0, 2));
@@ -156,6 +158,7 @@ function responsePostalCodeDeal_GA(response) { // ****************************TO
 
 if (document.getElementById('postal_code'))
     {
+        console.log('toto');
         const postal_code = document.getElementById('postal_code').value;
         if (postal_code.length == 5)
         {

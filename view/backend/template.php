@@ -11,7 +11,7 @@
         <link href="../vendor/bootstrap/css/bootstrap-4.4.1.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <?php
-if ($bodyid = 'documentsAdd') {
+if ($bodyid == 'documentsAdd') {
 ?>
         <link href="../vendor/dropzone-5.7.0/dist/dropzone.css" rel="stylesheet">
         <link href="../public/css/dropzoneCustom.css" rel="stylesheet">
@@ -46,7 +46,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 ?>
         <?= $content ?>
 <?php
-if ($bodyid = 'documentsAdd') {
+if ($bodyid == 'documentsAdd') {
 ?>
         <script src="../public/js/dropzoneCustom.js"></script> 
 <?php        
