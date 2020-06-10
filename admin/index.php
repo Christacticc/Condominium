@@ -41,15 +41,18 @@ function condominiumDisplay($condominium_id) {
     $excluded_categories = array($uploaded_category_name); // Array des catégories à exclure des listes
     $condominiumManager = new CondominiumManager($db);
     $documentManager = new DocumentManager($db);
+    $categoryManager = new CategoryManager($db);
+    $typeManager = new TypeManager($db);
     $general_assemblyManager = new General_assemblyManager($db);
     $photoManager = new PhotoManager($db);
     $downloadManager = new DownloadManager($db);
     $condominium = $condominiumManager->get($condominium_id);
     $condominium = $condominiumManager->get($condominium_id);
     $documents = $documentManager->getListExceptExcudedCategories($condominium_id, $excluded_categories);
+    $categoryToConfirm = $categoryManager->getWithName($uploaded_category_name);
+    $categoryToConfirmId = $categoryToConfirm->id();
+    $filestoconfirm = $documentManager->countWithCondominiumAndCategory($condominium_id, $categoryToConfirmId);
     $photos = $photoManager->getList($condominium_id);
-    $categoryManager = new CategoryManager($db);
-    $typeManager = new TypeManager($db);
     $categories = $categoryManager->getListExcluded($excluded_categories);
     $types = $typeManager->getListExcluded($excluded_types);
 
@@ -171,7 +174,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
             $categories = $categoryManager->getListExcluded($excluded_categories);
             $types = $typeManager->getListExcluded($excluded_types);
                         
-            require('../view/backend/documentsConf.php');
+            require('../view/backend/filesConf.php');
             $_SESSION['condominium'] = $condominium;
             
         } elseif (isset($_POST['submitCreateCondo'])) {

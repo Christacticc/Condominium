@@ -59,7 +59,7 @@ class CategoryManager {
         return($category);
     }
 
-    public function getWithName($name)     {
+    public function getWithName($name) {
         $q = $this->_db->prepare('SELECT ca_id id, ca_name name, ca_position position
         FROM s_category WHERE ca_name = :name');
         $q->bindValue(':name', $name);
@@ -79,8 +79,7 @@ class CategoryManager {
         return($category);
     }
 
-    public function getList()
-    {
+    public function getList() {
         $categories = [];
         $q = $this->_db->prepare('SELECT ca_name name, ca_id id, ca_position position FROM s_category ORDER BY ca_position');
         $q->execute();
@@ -91,8 +90,8 @@ class CategoryManager {
         return ($categories);
     }
     
-    public function getListExcluded($excluded_categories) //renvoie un tableau d'objets types, sauf les types dont le ty_name est dans le tableau $excuded.
-    {        
+    public function getListExcluded($excluded_categories) { //renvoie un tableau d'objets types, sauf les types dont le ty_name est dans le tableau $excuded.
+           
         $categories = [];
         $in  = str_repeat('?,', count($excluded_categories) - 1) . '?';
         $q = $this->_db->prepare('SELECT ca_name name, ca_id id, ca_position position FROM s_category WHERE ca_name NOT IN (' . $in . ') ORDER BY ca_position');

@@ -167,19 +167,60 @@ fieldset.sag legend {
 #documents-table .td-view .btn {
     line-height: 1.1;
 }
-#documents-table .modifDocDiv TD {
+#condominiumView #documents-table .modifDocDiv TD {
     border: none;
 }
 .input-group-sm > .chr-input-group-body > .input-group-text, 
 .input-group-sm > .chr-input-group-body > .btn {
-
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     line-height: 1.5;
     border-radius: 0;
 }
 .chr-input-group-body {
-
     display: -ms-flexbox;
     display: flex;
+}
+
+.chr-table-tbody-striped TBODY:nth-child(2n) TR {
+    background-color: lightcyan;
+}
+.chr-table-tbody-striped TBODY:nth-child(2n) INPUT {
+    background-color:lightcyan;
+}
+.chr-table-tbody-striped TBODY:nth-child(2n) .input-group-text {
+    background-color:lightcyan;
+}
+.chr-table-tbody-striped TBODY:nth-child(2n) SELECT {
+    background-color:lightcyan;
+}
+#documentsConf TBODY TR:nth-child(2) TD {
+}
+#documentsConf TBODY TR TD {
+
+}
+
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+.chr-btn-thumb::after {
+    content: "\f100";
+ font-family: Flaticon;
+    
 }

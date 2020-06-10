@@ -262,7 +262,7 @@ const types = [];
                     <div class="btn-group">
                     <button id="submitAddOneDoc" name="submitAddOneDoc" class="btn btn-success" type="submit" title="Ajouter un document" value="<?= $condominium->id() ?>">Ajouter un document</button>
                     <button id="submitAddSeveralDocs" name="submitAddSeveralDocs" class="btn btn-success" type="submit" title="Ajouter plusieurs documents" value="<?= $condominium->id() ?>">Ajouter plusieurs documents</button>
-                    <button id="submitOpenToConfirm" name="submitOpenToConfirm" class="btn btn-outline-success" type="submit" title="Confirmer les fichiers" value="<?= $condominium->id() ?>">Confirmer les fichiers</button>
+                    <button id="submitOpenToConfirm" name="submitOpenToConfirm" class="btn btn-outline-success" type="submit" title="Confirmer les fichiers" value="<?= $condominium->id() ?>"<?= $filestoconfirm == 0 ? ' disabled' : '' ?>><?php if($filestoconfirm == 0){echo('Aucun fichier à confirmer');}elseif($filestoconfirm == 1){echo('1 fichier à confirmer');}else{echo($filestoconfirm  . ' fichiers à confirmer');} ?></button>
                     </div></form>
             </div>
         </div>

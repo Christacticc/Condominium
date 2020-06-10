@@ -10,4 +10,5 @@ vendor/bootstrap/**
 vendor/dropzone-5.7.0/**
 admin/drop*
 * - Copie.php
+* .temp.php
 
