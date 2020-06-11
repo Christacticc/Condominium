@@ -78,7 +78,7 @@
                                 <span>Enlever</span>
                             </button>
                         </div>
-                        <button data-dz-remove class="btn btn-danger delete w-100" title="Supprimer le fichier du serveur">
+                        <button data-dz-remove class="btn btn-danger delete w-100" title="Supprimer le fichier du serveur (immédiatement)">
                             <span>Supprimer</span>
                         </button>
                     </div>

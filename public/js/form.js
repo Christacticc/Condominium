@@ -1,4 +1,6 @@
 // JavaScript Document
+          console.log('Coucou6');
+
 /*== Scripts Bootstraps BEGIN **********************************/
 // Disable form submissions if there are invalid fields
 (function() {
@@ -6,6 +8,8 @@
   window.addEventListener('load', function() {
     // Get the forms we want to add validation styles to
     const forms = document.getElementsByClassName('needs-validation');
+      console.log('coucou5');
+      
     // Loop over them and prevent submission
     const validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
@@ -33,6 +37,21 @@ $(".custom-file-input").on("change", function() {
     
 
 /*== Scripts Bootstraps END **********************************/
+
+/*== Script de rétablissement des boutons lorsque le document est chargé pour la page filesConf BEGIN**************/
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+});
+window.addEventListener('load', (event) => {
+    console.log('document fully loaded and parsed');
+    const elementsToEnable = document.getElementsByClassName('chr-wait-for-load');
+    Array.prototype.forEach.call(elementsToEnable, function(elementToEnable) {
+        elementToEnable.disabled = false;
+    });
+    
+});
+
+/*== Script de rétablissement des boutons lorsque le document est chargé pour la page filesConf END****************/
 
 /*== Script de remplissage automatique du SELECT city - line_5 lors de la frappe BEGIN********/
 function responsePostalCodeDeal(response) { // ****************************TO DO Ajouter la gestion des spinners
@@ -287,8 +306,42 @@ for (let i = 0; i < modifDivArray.length; i++)
 
 /*== Script d'envoi des formulaires de modification de condominium END********/
 
-/*== Script d'envoi des formulaires de modification de document BEGIN********/
+/*== Script d'envoi des formulaires de confirmation de fichier BEGIN********/
+function responseConfirmFile(response) { 
+    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    if (response.substr(0, 1) == '{') {
+        let response_array = JSON.parse(response);
+        let documentId = response_array['id'];
+        let card = document.getElementById('card-' + documentId);
+        card.classList.add('chr-outline-purple');
+        let button = card.getElementsByTagName('button')[0];
+        button.innerHTML = 'Réenregistrer';
+        let check = card.getElementsByTagName('i')[0];
+        check.classList.remove('d-none');
+    }
+}
 
+const formConfFileArray = document.querySelectorAll('#filesConf .needs-validation');
+for (let i = 0; i < formConfFileArray.length; i++) {
+    formConfFileArray[i].addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formElement = e.target;
+        if (formElement.checkValidity() === false) {
+            e.stopPropagation;
+        } else {
+            const formData = new FormData(formElement);
+            for(var pair of formData.entries()) {
+               console.log(pair[0]+ ', '+ pair[1]);
+            }
+            ajaxPost('ajax_fileconf.php', formData, responseConfirmFile);
+
+        }
+    });
+}
+/*== Script d'envoi des formulaires de confirmation de fichier END********/
+                                          
+                                          
+/*== Script d'envoi des formulaires de modification de document BEGIN********/
 function responseModifDocument(response) { 
     console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (response.substr(0, 1) == '{') {
@@ -401,42 +454,39 @@ for (let i = 0; i < modifDocFormLevel1Array.length; i++) {
 /*== Script d'envoi des formulaires de suppression de document BEGIN********/
 function responseDeleteDocDeal(response) { 
     console.log('Après : ' + response + ' -  typeof : ' + typeof response);
-    if (/[0-9]+/.test(response))
-        {
-            
-            //document.getElementById('delModal-' + response).style.display = 'none';
-            document.getElementById('tr-' + response).style.display = 'none';
-            document.getElementById('modifDocDiv-' + response).style.display = 'none';    
+    if (/[0-9]+/.test(response)) {
+        if (document.getElementById('condominiumView')) { // Page Copropriété
+                //document.getElementById('delModal-' + response).style.display = 'none';
+                document.getElementById('tr-' + response).style.display = 'none';
+                document.getElementById('modifDocDiv-' + response).style.display = 'none';
+        } else if (document.getElementById('filesConf')){
+            document.getElementById('card-' + response).style.display = 'none';
         }
-    else
-        {
-             document.getElementById('msg').innerHTML = response;
-        }
+    } else {
+         document.getElementById('msg').innerHTML = response;
+    }
 
     const modifDocDivArray = document.getElementsByClassName('modifDocDiv');
-    for (let j = 0; j < modifDocDivArray.length; j++)
-        {
-            let formElement = modifDocDivArray[j];                    
-            if (!formElement.classList.contains("d-none"))
-                {
-                    formElement.classList.add('d-none');
-                }
+    for (let j = 0; j < modifDocDivArray.length; j++) {
+        let formElement = modifDocDivArray[j];                    
+        if (!formElement.classList.contains("d-none")) {
+            formElement.classList.add('d-none');
         }
+    }
 }
 
 const deleteDocFormArray = document.getElementsByName('deleteDocForm');
-for (let i = 0; i < deleteDocFormArray.length; i++)
-    {
-        let deleteDocFormId = deleteDocFormArray[i].id;
-        let deleteDocForm = document.getElementById(deleteDocFormId);
-        deleteDocForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            let submitedForm = e.target;
-            let submitedFormArray = submitedForm.querySelectorAll('input');            
-            let ajax = '?id=' + submitedFormArray[0].value;
-            ajaxGet('ajax_documentdelete.php' + ajax, responseDeleteDocDeal);
-        });
-    }
+for (let i = 0; i < deleteDocFormArray.length; i++) {
+    let deleteDocFormId = deleteDocFormArray[i].id;
+    let deleteDocForm = document.getElementById(deleteDocFormId);
+    deleteDocForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        let submitedForm = e.target;
+        let submitedFormArray = submitedForm.querySelectorAll('input');            
+        let ajax = '?id=' + submitedFormArray[0].value;
+        ajaxGet('ajax_documentdelete.php' + ajax, responseDeleteDocDeal);
+    });
+}
 
 /*== Script d'envoi des formulaires de suppression de document END********/
 

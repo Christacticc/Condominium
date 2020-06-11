@@ -231,7 +231,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 require('../view/backend/condominiumAdd.php');
             }
         }
-        elseif (isset($_POST['submitCreateDoc']))
+        elseif (isset($_POST['submitCreateDoc'])) // Si on crée un nouveau document
         {
             if (isset($_SESSION['condominium']))
             {
