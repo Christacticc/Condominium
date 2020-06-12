@@ -45,8 +45,13 @@ if (empty($documents)) {
                                 </a>
                             </div>
                             <div class="col-sm-6 p-1">
-                                <label>Nom du fichier&nbsp;:</label>
-                                <div class="card bg-light p-1"><?= $document->file_name() ?></div>
+
+                                <dl class="small">
+                                    <dt>Nom du fichier&nbsp;:</dt>
+                                    <dd><?= $document->file_name() ?></dd>
+                                    <dt>Date de création&nbsp;:</dt>
+                                    <dd><?= preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', 'Le $3/$2/$1 à $4h$5', $document->creation_time()) ?></dd>
+                                </dl>
                             </div>
                         </div>
                     </div>

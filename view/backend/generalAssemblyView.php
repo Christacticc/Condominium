@@ -49,12 +49,14 @@ else
         <div class="row">
             <div class="col-sm-6">
                 <div class="card bg-light p-2">
-                    <div>Lieu de l'assemblée générale&nbsp;:</div>
-                    <div class="btn-group w-100">
-                        <button type="button" class="btn btn-outline-primary btn-sm mt-2 mb-3 fill-addr" id="fillAddr1"><?= General_assembly::NAME_1 ?></button>
-                        <button type="button" class="btn btn-outline-primary btn-sm mt-2 mb-3 fill-addr" id="fillAddr2"><?= General_assembly::NAME_2 ?></button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm mt-2 mb-3 fill-addr" id="resetAddr">Ré-initialiser l'adresse</button>
-                    </div> 
+                    <div class="form-group">                    
+                        <label>Lieu de l'assemblée générale&nbsp;:</label>
+                        <div class="btn-group w-100">
+                            <button type="button" class="btn btn-outline-primary btn-sm fill-addr" id="fillAddr1"><?= General_assembly::NAME_1 ?></button>
+                            <button type="button" class="btn btn-outline-primary btn-sm fill-addr" id="fillAddr2"><?= General_assembly::NAME_2 ?></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm fill-addr" id="resetAddr">Ré-initialiser l'adresse</button>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="address_1">Adresse 1&nbsp;:</label>
                         <input type="text" class="form-control form-control-sm" id="address_1" placeholder="Entrez la première partie de l'adresse" name="address_1" value="<?= isset($general_assembly) ? $general_assembly->address_1() : "" ?>">

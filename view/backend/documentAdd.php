@@ -109,15 +109,17 @@
                         </fieldset>
                     </div>
                     <div class="col-sm-6">
-                        <p>Upload d'un fichier pdf (taille max. 100 Mo)*&nbsp;:</p>
-                        <div class="custom-file">
-                            <input type="hidden" name="MAX_FILE_SIZE" value="100000000" />
-                            <input type="file" class="custom-file-input" name="do_file" accept="application/pdf" required>
-                            <label class="custom-file-label" for="do_file">Choisissez ou déposez un fichier</label>
-                            <div class="valid-feedback"></div>
-                            <div class="invalid-feedback">Ce champ est obligatoire</div>
+                        <div class="form-group">                        
+                            <label>Upload d'un fichier pdf (taille max. 100 Mo)*&nbsp;:</label>
+                            <div class="custom-file">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="100000000" />
+                                <input type="file" class="custom-file-input" name="do_file" accept="application/pdf" required>
+                                <label class="custom-file-label" for="do_file">Choisissez ou déposez un fichier</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">Ce champ est obligatoire</div>
+                            </div>
                         </div>
-                        <fieldset class="sag sag-bg-white px-2 pb-1 mt-3">
+                        <fieldset class="sag sag-bg-white px-2 pb-1">
                             <legend>Options&nbsp;:</legend>
                             <div class="row">
                                 <div class="col-sm-4 offset-sm-2 text-center">

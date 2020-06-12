@@ -26,8 +26,7 @@ if (!empty($condominiums))
                 <th>Référence</th>
                 <th>Nom</th>
                 <th>Mot de passe</th>
-                <th>Adresse 1</th>
-                <th>Adresse 2</th>
+                <th>Adresse 1 <span style="color:dimgrey">|</span> adresse 2</th>
                 <th>Code Postal</th>
                 <th>Ville</th>
                 <th class="text-center">Msg.</th>
@@ -45,8 +44,7 @@ if (!empty($condominiums))
                 <td><form method="post" name="formOpenCondo" id="formOpenCondo" action="index.php"><button id="submitOpenCondo" name="submitOpenCondo" class="btn btn-sm btn-success pl-0 pr-0" style="width: 90%;" type="submit" title="Ouvrir cette copropriété" value="<?= $condominium->id() ?>"><?= $condominium->internal_reference() ?></button></form></td>
                 <td><?= $condominium->name() ?></td>
                 <td><?= $condominium->password() ?></td>
-                <td><?= htmlspecialchars($condominium->address_1()) ?></td>
-                <td><?= htmlspecialchars($condominium->address_2()) ?></td>
+                <td><?= htmlspecialchars($condominium->address_1()) ?><?= $condominium->address_2() ? '<span style="color:dimgrey;"> | </span>' . htmlspecialchars($condominium->address_2()) : '' ?></td>
                  <td><?= $condominium->postal_code() ?></td>
                 <td><?= $condominium->city() ?></td>
                 <td class="text-center"><?= $condominium->message() != '' ? '<i class="material-icons md-dark" data-toggle="popover" data-trigger="hover" data-content="' . $condominium->message() . '">message</i>' : '<i class="material-icons md-dark md-inactive">message</i>'; ?></td>
