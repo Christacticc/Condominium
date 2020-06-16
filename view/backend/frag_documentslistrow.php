@@ -1,11 +1,18 @@
 <script language="javascript" type="text/javascript">
 </script>
     <tr id="tr-<?= $document->id() ?>">
-        <td class="td-view text-center pl-0 pr-3"  id="td-view-<?= $document->id() ?>" style="border-right: none">           
-            <div class="btn-group btn-group-sm">
-                <a href="<?= $pdfdownload_dir . $document->file_name() ?>" target="_blank" class="btn btn-outline-info" title="Ouvrir le document dans un nouvel onglet"><i class="fas fa-eye"></i></a>
-                <button type="button" class="btn btn-outline-success popable" id="button-<?= $document->id() ?>" title="Modification du nom / Changement de catégorie / Suppression du document"><i class="fas fa-wrench"></i></button>
-            </div>            
+        <td class="td-view text-center pl-0 pr-3"  id="td-view-<?= $document->id() ?>" style="border-right: none">
+            <form id="moveDocumentForm-<?= $document->id() ?>" class="moveDocumentForm">
+                <input type="hidden" name="document_id" value="<?= $document->id() ?>">
+                <div class="btn-group btn-group-sm">
+                    <button type="submit" class="btn btn-sm btn-primary semi-width moveDocument" name="up" <?= $i == 0 ? 'disabled' : '' ?>><?= $i == 0 ? '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">minimize</i>' : '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_upward</i>' ?>
+                    </button>                
+                    <button type="submit" class="btn btn-sm btn-primary semi-width  moveDocument" name="down" <?= $i == count($$category_var) - 1 ? 'disabled' : '' ?>><?= $i == count($$category_var) - 1 ? '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">minimize</i>' : '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_downward</i>' ?>
+                    </button>                
+                    <a href="<?= $pdfdownload_dir . $document->file_name() ?>" target="_blank" class="btn btn-outline-info" title="Ouvrir le document dans un nouvel onglet"><i class="fas fa-eye"></i></a>
+                    <button type="button" class="btn btn-outline-success popable" id="button-<?= $document->id() ?>" title="Modification du nom / Changement de catégorie / Suppression du document"><i class="fas fa-wrench"></i></button>
+                </div>
+            </form>
         </td>
         <td class="small"  id="td-name-<?= $document->id() ?>" style="border-left: none;"><?= $document->name() ?></td>
         <td id="td-file_name-<?= $document->id() ?>" class="small" style="line-height: 1"><span class="small"><?= $document->file_name() ?></span></td>
@@ -84,7 +91,7 @@
           }
 ?>
         </td>
-     </tr>
+    </tr>
     <tr id="modifDocDiv-<?= $document->id() ?>" class="d-none modifDocDiv">
         <td colspan="10" class="p-0 align-middle">
             <div class="row">

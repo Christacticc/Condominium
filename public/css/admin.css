@@ -64,8 +64,23 @@ fieldset.sag legend {
 .btn-group > .btn + .btn-outline-success:active {
     border-left: rgb(140, 210, 152) 1px solid; 
 }
-.input-group-append .btn-primary + .btn-primary {
+.btn-group > .btn + .btn-primary,
+.btn-group > .btn + .btn-primary:link,
+.btn-group > .btn + .btn-primary:visited,
+.btn-group > .btn + .btn-primary:hover,
+.btn-group > .btn + .btn-primary:focus,
+.btn-group > .btn + .btn-primary:active,
+.input-group-append .btn-primary + .btn-primary,
+.input-group-append .btn-primary + .btn-primary:link,
+.input-group-append .btn-primary + .btn-primary:visited,
+.input-group-append .btn-primary + .btn-primary:hover,
+.input-group-append .btn-primary + .btn-primary:focus,
+.input-group-append .btn-primary + .btn-primary:active {
     border-left:  rgb(112, 181, 152) 1px solid; 
+}
+.btn-group-sm .btn.semi-width,
+.btn-sm.semi-width {
+    padding: 0.25rem 0.1rem;
 }
 /*--------------------------------*/
 /* ==            BADGE            */

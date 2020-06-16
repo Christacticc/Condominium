@@ -209,7 +209,7 @@ d'une copropriété*&nbsp;:</h6>
         ?>
            <div class="col-sm-6">
                <p><span class="h6">Assemblée générale</span> programmée le <span class="h5"><?= preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', '$3/$2/$1', $general_assembly->ga_time()) ?></span><?= !preg_match('#[-0-9]{10} 00:00:00#', $general_assembly->ga_time()) ? ' à <span class="h5">' . preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', '$4h$5', $general_assembly->ga_time()) . '</span>.' : ''?></p>
-                <p>Lieu&nbsp;:<?= is_string($general_assembly->address_1()) && $general_assembly->address_1() !== '' ? '<br>' . $general_assembly->address_1() : '' ?><?= is_string($general_assembly->address_2()) && $general_assembly->address_2() !== '' ? ', ' . $general_assembly->address_2() : '' ?><?= is_string($general_assembly->postal_code()) && $general_assembly->postal_code() !== '' ? ', ' . $general_assembly->postal_code(): '' ?><?= is_string($general_assembly->city()) && $general_assembly->city() !== '' ? ' ' . $general_assembly->city() : '' ?></p> 
+                <p>Lieu&nbsp;:<?= is_string($general_assembly->address_1()) && $general_assembly->address_1() !== '' ? '<br>' . $general_assembly->address_1() : '' ?><?= is_string($general_assembly->address_2()) && $general_assembly->address_2() !== '' ? ', ' . $general_assembly->address_2() : '' ?><?= is_string($general_assembly->postal_code()) && $general_assembly->postal_code() !== '' ? ', ' . $general_assembly->postal_code(): '' ?><?= is_string($general_assembly->city()) && $general_assembly->city() !== '' ? ' ' . $general_assembly->city() : '' ?></p>
             </div>
             <div class="col-sm-4">
 <?php
@@ -255,7 +255,7 @@ const types = [];
     <div class="card bg-light p-2 mt-4 mb-0" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none">
         <div class="row">
             <div class="col-sm-4">
-                <h1 class="h3"><span class="h6">Liste des documents</span></h1>
+                <h1 class="h3"><span class="h6"><?php if(count($documents) == 0){echo('Aucun document pour cette copropriété');}else{if(count($documents) == 1){echo('1 document');}else{echo(count($documents) . ' documents');}} ?></span></h1>
             </div>
             <div class="col-sm-8 my-2 text-right">
                 <form method="post" action="index.php">
@@ -268,13 +268,7 @@ const types = [];
         </div>
     </div>
 <?php
-  if (empty($documents))
-  {
-?>
-    <p class="text-muted">Aucun document pour cette copropriété</p>
-<?php    
-  }
-  else
+  if (!empty($documents))
   {
 ?>
     <table id="documents-table" class="table table-sm table-bordered">
@@ -286,7 +280,7 @@ const types = [];
         <tbody id="tbody-<?= $category->id() ?>">
             <tr>
                <td colspan="10" class="bg-light py-2">
-                   <h2 class="h6 text-center"><?= ucfirst($category->name()) ?></h2>
+                   <h2 class="h6 text-center"><?= ucfirst($category->name()) ?> (<?= count($$category_var) ?>)</h2>
                </td>
             </tr>
 <?php
@@ -313,9 +307,11 @@ const types = [];
             </tr>
             
 <?php
+            $i = 0;
             foreach ($$category_var as $document)
             {
                 include('../view/backend/frag_documentslistrow.php');
+                $i ++;
             } //END foreach document
         } // END if category not empty
 ?>
@@ -330,7 +326,7 @@ const types = [];
    <div class="card bg-light p-2 mt-4 mb-0">
         <div class="row">
             <div class="col-sm-8">
-                <h1 class="h3"><span class="h6">Liste des photos</span></h1>
+                <h1 class="h3"><span class="h6"><?php if(count($photos) == 0){echo('Aucune photo pour cette copropriété');}else{if(count($photos) == 1){echo('1 photo');}else{echo(count($photos) . ' photos');}} ?></span></h1>
             </div>
             <div class="col-sm-4  mt-2">
 <?php
@@ -345,11 +341,7 @@ const types = [];
         </div>
     </div>
 <?php
-  if (empty($photos))
-  {
-      echo('Aucune photo pour cette copropriété');   
-  }
-  else
+  if (!empty($photos))
   {
 ?>
     <table class="table table-sm table-bordered">

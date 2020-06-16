@@ -398,7 +398,6 @@ function responseModifDocument(response) {
                     let referenceTRElement = document.getElementById('tr-' + response_array['location']);
                     tbodyElement.insertBefore(trElement, referenceTRElement);
                     tbodyElement.insertBefore(modifDocElement, referenceTRElement);                    
-                 // your code here
                 } else {
                     let tbodyId = 'tbody-' + response_array['category_id'];
                     let tbodyElement = document.getElementById(tbodyId);
@@ -450,6 +449,46 @@ for (let i = 0; i < modifDocFormLevel1Array.length; i++) {
 
 
 /*== Script d'envoi des formulaires de modification de document END********/
+
+/*== Script de déplacement de document BEGIN********************************/
+function disableButtons(tbodyElement){
+    console.log('tbodyElement.id : ' + tbodyElement.id);
+}
+function responseMoveDocument(response) { 
+    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    if (response.substr(0, 1) == '{') {
+        let response_array = JSON.parse(response);
+        let documentToMoveUpId = response_array['documentToMoveUp_id'];
+        let documentToMoveDownId = response_array['documentToMoveDown_id'];
+        
+        let tbodyId = 'tbody-' + response_array['category_id'];
+        let tbodyElement = document.getElementById(tbodyId);
+        let referenceTRElement = document.getElementById('tr-' + response_array['documentToMoveDown_id']);
+        let trElement = document.getElementById('tr-' + response_array['documentToMoveUp_id']);
+        let modifDocElement = document.getElementById('modifDocDiv-' + response_array['documentToMoveUp_id']);
+        tbodyElement.insertBefore(trElement, referenceTRElement);
+        tbodyElement.insertBefore(modifDocElement, referenceTRElement);
+        disableButtons (tbodyElement);
+    }
+}
+
+const moveDocumentFormArray = document.getElementsByClassName(' moveDocument');
+for (let i = 0; i < moveDocumentFormArray.length; i++) {
+    moveDocumentFormArray[i].addEventListener('click', function (e) {
+        e.preventDefault();
+        const clickedElement = e.target;
+        if (clickedElement.closest('BUTTON')) {
+            e.preventDefault();
+        }
+        const formElement = clickedElement.closest('FORM');
+        const formData = new FormData(formElement);
+        formData.append('movement', clickedElement.closest('BUTTON').name);
+
+        ajaxPost('ajax_documentmove.php', formData, responseMoveDocument);
+    });
+}
+/*== Script de déplacement de document END****************************************/
+
 
 /*== Script d'envoi des formulaires de suppression de document BEGIN********/
 function responseDeleteDocDeal(response) { 

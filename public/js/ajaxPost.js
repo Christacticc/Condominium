@@ -14,10 +14,8 @@ function ajaxPost(url, formData, callback) {
     req.addEventListener('error', function () {
         console.error('Erreur réseau avec l\'URL' + url);
     });
-    console.log('ajaxPost : ');
     // Display the key/value pairs
     for (var pair of formData.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
     }
     req.send(formData);
 }
