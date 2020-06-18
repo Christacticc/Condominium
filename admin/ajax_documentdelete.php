@@ -25,10 +25,15 @@ try
         {
             $documentManager = new DocumentManager($db);
             $document = $documentManager->get($_GET['id']);
+            $sort_number = $document->sort_number();
+            $documents_to_go_down = $documentManager->getListToGoDown($document->condominium_id(), $document->category_id(), $sort_number);
             $count = $documentManager->delete($_GET['id']);
             if ($count == 1)
             {
-                
+                foreach($documents_to_go_down as $document_to_go_down) {
+                    $document_to_go_down->setSort_number($document_to_go_down->sort_number() - 1);
+                    $documentManager->update($document_to_go_down);
+                }
                 $response = $_GET['id'];
                 unlink($pdfupload_dir . $document->file_name());
                 unset($document);

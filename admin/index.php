@@ -140,7 +140,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
         if (isset($_POST['submitOpenCondo'])) { // Si on veux ouvrir une copropriété en modification.
             condominiumDisplay($_POST['submitOpenCondo']);
             
-        } elseif (isset($_POST['submitAddOneDoc'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
+        } elseif (isset($_POST['submitAddOneDoc'])) { // Si on veux ouvrir le formulaire d'ajout d'un document unique.
             $condominium = $condominiumManager->get($_POST['submitAddOneDoc']);
             $condominiumManager = new CondominiumManager($db);
             $categoryManager = new CategoryManager($db);
@@ -151,7 +151,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 
             require('../view/backend/documentAdd.php');
             
-        } elseif (isset($_POST['submitAddSeveralDocs'])) { // Si on veux ouvrir la liste des fichiers à confirmer pour une copropriété.
+        } elseif (isset($_POST['submitAddSeveralDocs'])) { // Si on veux ouvrir le formulaire d'ajout de plusieurs documents.
             $condominium = $condominiumManager->get($_POST['submitAddSeveralDocs']);
             $condominiumManager = new CondominiumManager($db);
             $categoryManager = new CategoryManager($db);
@@ -277,6 +277,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                 if (move_uploaded_file($tmp_file,$pdfupload_dir.$file_name ))
                                 {
                                     $msg = 'L\'upload s\'est bien passé pour ' .$condominium->name();
+                                    // Récupérer le numéro d'ordre le plus élevé pour cette copro et cette catégorie
                                     // Construire $param.
                                     $param['available'] = isset($_POST['do_available']) ? 1 : 0;
                                     $param['category_id'] = $_POST['do_category'];
@@ -285,6 +286,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                                     $param['name'] = $_POST['do_name'];
                                     $param['tracked'] = isset($_POST['do_tracked']) ? 1 : 0;
                                     $param['type_id'] = $_POST['do_type'];
+                                    $param['sort_number'] = $documentManager->getHighestSortNumber($condominium->id(), $_POST['do_category']) + 1;
                                     $document = new Document($param);
                                     $document = $documentManager->add($document);
                                     condominiumDisplay($condominium->id());

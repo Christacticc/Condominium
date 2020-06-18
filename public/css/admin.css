@@ -70,17 +70,33 @@ fieldset.sag legend {
 .btn-group > .btn + .btn-primary:hover,
 .btn-group > .btn + .btn-primary:focus,
 .btn-group > .btn + .btn-primary:active,
+.btn-group > .btn + .btn-primary:disabled,
+.btn-group > .btn + .btn-primary:disabled,
 .input-group-append .btn-primary + .btn-primary,
 .input-group-append .btn-primary + .btn-primary:link,
 .input-group-append .btn-primary + .btn-primary:visited,
 .input-group-append .btn-primary + .btn-primary:hover,
 .input-group-append .btn-primary + .btn-primary:focus,
-.input-group-append .btn-primary + .btn-primary:active {
-    border-left:  rgb(112, 181, 152) 1px solid; 
+.input-group-append .btn-primary + .btn-primary:active,
+.input-group-append .btn-primary:hover + .btn-primary:disabled,
+.btn-group > .btn:link + .btn-primary,
+.btn-group > .btn:visited + .btn-primary,
+.btn-group > .btn:hover + .btn-primary,
+.btn-group > .btn:focus + .btn-primary,
+.btn-group > .btn:active + .btn-primary,
+.btn-group > .btn:disabled + .btn-primary,
+.input-group-append .btn-primary + .btn-primary,
+.input-group-append .btn-primary:link + .btn-primary,
+.input-group-append .btn-primary:visited + .btn-primary,
+.input-group-append .btn-primary:hover + .btn-primary,
+.input-group-append .btn-primary:focus + .btn-primary,
+.input-group-append .btn-primary:active + .btn-primary,
+.input-group-append .btn-primary:disabled + .btn-primary {
+    border-left: rgba(224,238,255,1.00) 1px solid; 
 }
 .btn-group-sm .btn.semi-width,
 .btn-sm.semi-width {
-    padding: 0.25rem 0.1rem;
+    padding: 0.25rem 0.2rem;
 }
 /*--------------------------------*/
 /* ==            BADGE            */

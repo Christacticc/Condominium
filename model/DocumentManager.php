@@ -14,7 +14,7 @@ class DocumentManager {
 
     public function add($document)
     {
-        $q = $this->_db->prepare('INSERT INTO s_document(do_available, do_fk_category_id, do_fk_condominium_id, do_file_name, do_name, do_tracked, do_fk_type_id) VALUES (:available, :category_id, :condominium_id, :file_name, :name, :tracked, :type_id)');
+        $q = $this->_db->prepare('INSERT INTO s_document(do_available, do_fk_category_id, do_fk_condominium_id, do_file_name, do_name, do_tracked, do_fk_type_id, do_sort_number) VALUES (:available, :category_id, :condominium_id, :file_name, :name, :tracked, :type_id, :sort_number)');
         $q->bindValue(':available', $document->available());
         $q->bindValue(':category_id', $document->category_id());
         $q->bindValue(':category_id', $document->category_id());
@@ -23,6 +23,7 @@ class DocumentManager {
         $q->bindValue(':name', $document->name());
         $q->bindValue(':tracked', $document->tracked());
         $q->bindValue(':type_id', $document->type_id());
+        $q->bindValue(':sort_number', $document->sort_number());
         $q->execute();
         
         $id = $this->_db->lastInsertId(); // doit être immédiatement après execute
@@ -356,6 +357,33 @@ class DocumentManager {
         return ($recent_documents);
     }
     
+     public function getListToGoDown($condominium_id, $category_id, $sort_number) // 3 plus récents documents publiés, pas de type fiche synthétique
+    {
+        $documents = []; 
+        $q = $this->_db->query('SELECT
+        do_available available, 
+        do_fk_category_id category_id, 
+        do_fk_condominium_id condominium_id, 
+        do_creation_time creation_time, 
+        do_file_name file_name, 
+        do_id id, 
+        do_modification_time modification_time, 
+        do_name name, 
+        do_sort_number sort_number, 
+        do_tracked tracked, 
+        do_fk_type_id type_id 
+        FROM s_document 
+        WHERE do_fk_condominium_id = ' . $condominium_id . ' 
+        AND do_fk_category_id = ' . $category_id . ' 
+        AND do_sort_number > ' . $sort_number . ' 
+        ORDER BY do_sort_number DESC');
+        while ($data = $q->fetch(PDO::FETCH_ASSOC))
+        {
+            $documents[] = new Document($data);
+        }
+        return ($documents);
+    }
+    
       public function getOlder($condominium_id, $category_id, $creation_time) // listes de document back condominiumView
     {
         $q = $this->_db->prepare('SELECT
@@ -397,26 +425,12 @@ class DocumentManager {
         }
     }
 
-   public function modify($data)
+    public function getHighestSortNumber($condominium_id, $category_id) // listes de document back condominiumView
     {
-        if ((is_array($data)) && (isset($data['id'])))
-        {
-            $document = $this->get($data['id']); // objet $document créé dans get()
-            foreach($data as $key => $value)
-            {
-                if ($key != 'id')
-                {
-                    $method = 'set'.ucfirst($key);
-                    if (method_exists($document, $method))
-                    {
-                        $document->$method($value);
-                    }
-                }
-            }
-        }
-        $this->update($document);
-        $document = $this->get($data['id']); // pour récupérer la date de modification
-        return $document;        
+        $q = $this->_db->query('SELECT MAX(do_sort_number) AS sort_number FROM s_document 
+        WHERE do_fk_condominium_id = ' . $condominium_id . ' 
+        AND do_fk_category_id = ' . $category_id);
+        return (int) $q->fetchColumn();
     }
         
     public function update($document)

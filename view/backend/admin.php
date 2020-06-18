@@ -113,7 +113,7 @@
 ?>
                             <div class="input-group-prepend">
                                 <button type="submit" class="btn btn-sm btn-primary" name="moveUpCategory">
-                                    <i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_upward</i>
+                                    <i class="fas fa-arrow-up"></i>
                                 </button>
                             </div>
 <?php
@@ -123,7 +123,7 @@
 ?>
                             <div class="input-group-prepend">
                                 <button class="btn btn-sm btn-primary" disabled style="cursor: default">
-                                    <i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">minimize</i>
+                                    <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                             

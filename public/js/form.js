@@ -1,5 +1,34 @@
 // JavaScript Document
-          console.log('Coucou6');
+
+
+/*==  Fonction ucfirst******************************************/
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+/*==  Fonction d'actualisation des boutons up et down lors des déplacements et changements de catégorie des documents */
+function disableButtons(tbodyElement){
+    const upArray = tbodyElement.querySelectorAll('button[name="up"]');
+    const downArray = tbodyElement.querySelectorAll('button[name="down"]');
+    upArray.forEach(function(item) {
+       if (item == upArray[0]) {
+           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">remove</i>';
+           item.disabled = true;
+       } else {
+           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_upward</i>';
+           item.disabled = false;
+       }
+    });
+    downArray.forEach(function(item) {
+       if (item == downArray[downArray.length - 1]) {
+           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">remove</i>';
+           item.disabled = true;
+       } else {
+           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_downward</i>';
+           item.disabled = false;
+       }
+    });
+}
+
 
 /*== Scripts Bootstraps BEGIN **********************************/
 // Disable form submissions if there are invalid fields
@@ -8,12 +37,10 @@
   window.addEventListener('load', function() {
     // Get the forms we want to add validation styles to
     const forms = document.getElementsByClassName('needs-validation');
-      console.log('coucou5');
       
     // Loop over them and prevent submission
     const validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
-          console.log('Coucou3');
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
@@ -34,28 +61,44 @@ $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
-    
-
 /*== Scripts Bootstraps END **********************************/
 
+
 /*== Script de rétablissement des boutons lorsque le document est chargé pour la page filesConf BEGIN**************/
-document.addEventListener('DOMContentLoaded', (event) => {
+/*document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
-});
+});*/
 window.addEventListener('load', (event) => {
-    console.log('document fully loaded and parsed');
+//    console.log('document fully loaded and parsed');
     const elementsToEnable = document.getElementsByClassName('chr-wait-for-load');
     Array.prototype.forEach.call(elementsToEnable, function(elementToEnable) {
         elementToEnable.disabled = false;
     });
     
 });
-
 /*== Script de rétablissement des boutons lorsque le document est chargé pour la page filesConf END****************/
+//                                                TODO
+
+/*window.addEventListener('load', (event) => {
+//    console.log('document fully loaded and parsed');
+    const elementsToPopover = document.getElementsByClassName('chr-opendoc');
+    Array.prototype.forEach.call(elementsToPopover, function(elementToPopover) {
+        let elementToPopoverSplit = elementToPopover.split('-');
+        const documentId = elementToPopoverSplit[1];
+
+        elementToPopover.setAttribute('
+    });
+    
+});
+*/
+/*== Script de création des popover d'affimage des vignettes sur la page condominiumView BEGIN**************/
+
+/*== Script de création des popover d'affimage des vignettes sur la page condominiumView END**************/
+
 
 /*== Script de remplissage automatique du SELECT city - line_5 lors de la frappe BEGIN********/
 function responsePostalCodeDeal(response) { // ****************************TO DO Ajouter la gestion des spinners
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response + ' - substr : ' + response.substr(0, 2));
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response + ' - substr : ' + response.substr(0, 2));
     if (response.substr(0, 2) == '[{')
         {
         document.getElementById('postal_code').setCustomValidity('');
@@ -177,7 +220,6 @@ function responsePostalCodeDeal_GA(response) { // ****************************TO
 
 if (document.getElementById('postal_code'))
     {
-        console.log('toto');
         const postal_code = document.getElementById('postal_code').value;
         if (postal_code.length == 5)
         {
@@ -206,7 +248,7 @@ if (document.getElementById('postal_code'))
 
 /*== Script d'envoi des formulaires de modification de condominium BEGIN********/
 function responseModifDeal(response) { // ****************************
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (response.substr(0, 1) == '{')
         {
             const response_array = JSON.parse(response);
@@ -308,7 +350,7 @@ for (let i = 0; i < modifDivArray.length; i++)
 
 /*== Script d'envoi des formulaires de confirmation de fichier BEGIN********/
 function responseConfirmFile(response) { 
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (response.substr(0, 1) == '{') {
         let response_array = JSON.parse(response);
         let documentId = response_array['id'];
@@ -330,9 +372,10 @@ for (let i = 0; i < formConfFileArray.length; i++) {
             e.stopPropagation;
         } else {
             const formData = new FormData(formElement);
-            for(var pair of formData.entries()) {
+/*            for(var pair of formData.entries()) {
                console.log(pair[0]+ ', '+ pair[1]);
             }
+*/
             ajaxPost('ajax_fileconf.php', formData, responseConfirmFile);
 
         }
@@ -343,13 +386,14 @@ for (let i = 0; i < formConfFileArray.length; i++) {
                                           
 /*== Script d'envoi des formulaires de modification de document BEGIN********/
 function responseModifDocument(response) { 
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (response.substr(0, 1) == '{') {
         let response_array = JSON.parse(response);
         let documentId = response_array['id'];
         let modified_property = response_array['modified_property'];
         let formId = 'modifDocDiv-' + documentId; // le formulaire à refermer pour name et category
         let modifDocElement = document.getElementById(formId);
+        let buttonElement = document.getElementById('button-' + documentId);
         switch (modified_property) {
             case 'type_id':
                 let button = document.getElementById('typeChange-' + documentId);
@@ -385,6 +429,7 @@ function responseModifDocument(response) {
                 nameTD.innerHTML = response_array['name'];
                 nameTD.classList.add('text-chr-purple');
                 modifDocElement.classList.add('d-none');
+                buttonElement.innerHTML = '<i class="fas fa-plus"></i>';
                 break;                
             case 'category_id':
                 modifDocElement.classList.add('d-none');
@@ -392,24 +437,48 @@ function responseModifDocument(response) {
                 let trElement = document.getElementById(trId);
                 trElement.classList.add('chr-outline-purple');
 
-                if (typeof response_array['location'] !== 'undefined') {
-                    let tbodyId = 'tbody-' + response_array['category_id'];
-                    let tbodyElement = document.getElementById(tbodyId);
-                    let referenceTRElement = document.getElementById('tr-' + response_array['location']);
-                    tbodyElement.insertBefore(trElement, referenceTRElement);
-                    tbodyElement.insertBefore(modifDocElement, referenceTRElement);                    
+                // Insérer les 2 tr du document en haut de la nouvelle catégorie
+                const tbodyId = 'tbody-' + response_array['category_id'];
+                const tbodyElement = document.getElementById(tbodyId);
+                const firstElement = tbodyElement.children[2];
+                tbodyElement.insertBefore(trElement, firstElement);
+                tbodyElement.insertBefore(modifDocElement, firstElement);
+                // mettre à jour la validité des boutons up et down
+                disableButtons (tbodyElement);
+                //mettre à jour le nombre de documents dans le titre 
+                let nbDocuments = tbodyElement.querySelectorAll('TR[id]').length / 2;
+                let titleTR = tbodyElement.children[0];
+                titleTR.firstElementChild.firstElementChild.innerText = capitalizeFirstLetter(response_array['category_name']) + ' (' + nbDocuments + ')';
+                //mettre à jour la ligne d'entête des colonnes de la catégorie
+                if (nbDocuments == 0) {
+                    titleTR.nextElementSibling.innerHTML = '<td class="text-muted" colspan="10">Aucun document pour cette catégorie</td>';
                 } else {
-                    let tbodyId = 'tbody-' + response_array['category_id'];
-                    let tbodyElement = document.getElementById(tbodyId);
-                    tbodyElement.appendChild(trElement);
-                    tbodyElement.appendChild(modifDocElement);                    
+                    titleTR.nextElementSibling.innerHTML = '<td class="small" style="border-right: none"></td><td class="small" style="border-left: none; width: 310px"><strong>Nom</strong></td><td class="small" style="width: 200px"><strong>Fichier</strong></td><td class="small"><strong>Création</strong></td><td class="small"><strong>Modification</strong></td><td class="text-center small"><strong>Type</strong></td><td class="text-center small" colspan="2"><strong>Publié</strong></td><td class="text-center small" colspan="2"><strong>Suivi</strong></td>';
                 }
+                
+                // mettre à jour la validité des boutons up et down dans l'ancienne catégorie
+                const old_tbodyId = 'tbody-' + response_array['old_category_id'];
+                const old_tbodyElement = document.getElementById(old_tbodyId);
+                disableButtons (old_tbodyElement);
+                // mettre à jour le bouton d'ouverture du second TR
+                buttonElement.innerHTML = '<i class="fas fa-plus"></i>';                
+                //mettre à jour le nombre de documents dans le titre dans l'ancienne catégorie
+                nbDocuments = old_tbodyElement.querySelectorAll('TR[id]').length / 2;
+                titleTR = old_tbodyElement.children[0];
+                titleTR.firstElementChild.firstElementChild.innerText = capitalizeFirstLetter(response_array['old_category_name']) + ' (' + nbDocuments + ')';
+                //mettre à jour la ligne d'entête des colonnes de l'ancienne catégorie
+                if (nbDocuments == 0) {
+                    titleTR.nextElementSibling.innerHTML = '<td class="text-muted" colspan="10">Aucun document pour cette catégorie</td>';
+                } else {
+                    titleTR.nextElementSibling.innerHTML = '<td class="small" style="border-right: none"></td><td class="small" style="border-left: none; width: 310px"><strong>Nom</strong></td><td class="small" style="width: 200px"><strong>Fichier</strong></td><td class="small"><strong>Création</strong></td><td class="small"><strong>Modification</strong></td><td class="text-center small"><strong>Type</strong></td><td class="text-center small" colspan="2"><strong>Publié</strong></td><td class="text-center small" colspan="2"><strong>Suivi</strong></td>';
+                }
+                
+                
                 if (typeof response_array['scroll'] !== 'undefined') {
                     trElement.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
                 }
-                break;                
+                break;
         }
-
     }
 }
 
@@ -451,11 +520,8 @@ for (let i = 0; i < modifDocFormLevel1Array.length; i++) {
 /*== Script d'envoi des formulaires de modification de document END********/
 
 /*== Script de déplacement de document BEGIN********************************/
-function disableButtons(tbodyElement){
-    console.log('tbodyElement.id : ' + tbodyElement.id);
-}
 function responseMoveDocument(response) { 
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (response.substr(0, 1) == '{') {
         let response_array = JSON.parse(response);
         let documentToMoveUpId = response_array['documentToMoveUp_id'];
@@ -467,7 +533,7 @@ function responseMoveDocument(response) {
         let trElement = document.getElementById('tr-' + response_array['documentToMoveUp_id']);
         let modifDocElement = document.getElementById('modifDocDiv-' + response_array['documentToMoveUp_id']);
         tbodyElement.insertBefore(trElement, referenceTRElement);
-        tbodyElement.insertBefore(modifDocElement, referenceTRElement);
+        tbodyElement.insertBefore(modifDocElement, referenceTRElement); 
         disableButtons (tbodyElement);
     }
 }
@@ -492,14 +558,26 @@ for (let i = 0; i < moveDocumentFormArray.length; i++) {
 
 /*== Script d'envoi des formulaires de suppression de document BEGIN********/
 function responseDeleteDocDeal(response) { 
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (/[0-9]+/.test(response)) {
         if (document.getElementById('condominiumView')) { // Page Copropriété
-                //document.getElementById('delModal-' + response).style.display = 'none';
-                document.getElementById('tr-' + response).style.display = 'none';
-                document.getElementById('modifDocDiv-' + response).style.display = 'none';
+            let tr1 = document.getElementById('tr-' + response); 
+            let tr2 = document.getElementById('modifDocDiv-' + response);
+            if (tr1.parentNode) {
+                tr1.parentNode.removeChild(tr1);
+            }
+            if (tr2.parentNode) {
+                tr2.parentNode.removeChild(tr2);
+            }
         } else if (document.getElementById('filesConf')){
-            document.getElementById('card-' + response).style.display = 'none';
+            let card = document.getElementById('card-' + response);
+            let delModal = document.getElementById('delModal-' + response);
+            if (card.parentNode) {
+                card.parentNode.removeChild(card);
+            }
+            if (delModal.parentNode) {
+                delModal.parentNode.removeChild(delModal);
+            }
         }
     } else {
          document.getElementById('msg').innerHTML = response;
@@ -529,9 +607,10 @@ for (let i = 0; i < deleteDocFormArray.length; i++) {
 
 /*== Script d'envoi des formulaires de suppression de document END********/
 
+
 /*== Script d'envoi d'inversion de position de photo BEGIN********/
 function responseReversePhoDeal(response) { 
-    console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
         if (response.substr(0, 2) == '[{')
         {
             const response_array = JSON.parse(response);
@@ -567,7 +646,8 @@ if (document.getElementById('ph_reverse'))
 
 /*== Script d'envoi d'inversion de position de photo END********/
 
-/*== Script d'ouverture/fermeture des formulaires de modification de condominium BEGIN********/
+
+/*== Script d'ouverture/fermeture des formulaires de modification de condominium ou de document BEGIN********/
 // Ouvrir le formulaire correspondant au champ à modifier :
 const popableArray = document.getElementsByClassName('popable');
 for (let i = 0; i < popableArray.length; i++) {
@@ -587,9 +667,10 @@ for (let i = 0; i < popableArray.length; i++) {
                 document.getElementById(formId).classList.remove('d-none');
             });            
         }
-        else if (eltIdSplit[0] == 'button')
+        else if (eltIdSplit[0] == 'button') // pour modification de document
             {
                 let formId = 'modifDocDiv-' + eltIdSplit[1];
+                let buttonElement = document.getElementById('button-' + eltIdSplit[1]);
                 let modifDocElement = document.getElementById(formId);
                 document.getElementById(eltId).addEventListener('click', function (e) {
                     const modifDocDivArray = document.getElementsByClassName('modifDocDiv');
@@ -603,14 +684,17 @@ for (let i = 0; i < popableArray.length; i++) {
                     }*/
                     if (!modifDocElement.classList.contains("d-none")) { 
                         modifDocElement.classList.add('d-none');
+                        buttonElement.innerHTML = '<i class="fas fa-plus"></i>';
                     } else {
                         modifDocElement.classList.remove('d-none');                        
+                        buttonElement.innerHTML = '<i class="fas fa-minus"></i>';
                     }
                 });                
             }
 
     }
-/*== Script d'ouverture/fermeture des formulaires de modification de condominium END********/
+/*== Script d'ouverture/fermeture des formulaires de modification de condominium ou de document END********/
+
 
 /*== Script de remplissage de l'adresse de l'AG par une adresse prédéterminée BEGIN********/
 const fillAddrArray = document.getElementsByClassName('fill-addr'); 
@@ -646,6 +730,7 @@ for (let i = 0; i < fillAddrArray.length; i++)
         
 
 /*== Script de remplissage de l'adresse de l'AG par une adresse prédéterminée END********/
+
 
 /*== Script de mise au format jj/mm/dddd de la date préremplie d'une AG dans Safari qui ne prend pas en charge l'input type date BEGIN********/
 if (document.getElementById('day'))
