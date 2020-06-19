@@ -391,7 +391,7 @@ const types = [];
         <div class="row">
             <div class="col-sm-12 mt-2">
                 <div class="text-right">
-                    <a href="#delConModal-<?= $condominium->id() ?>" class="btn btn-warning" data-toggle="modal">Supprimer la copropriété <?= $condominium->name() ?>&hellip;</a>
+                    <a href="#delConModal-<?= $condominium->id() ?>" class="btn btn-warning" data-toggle="modal" title="Supprimer cette copropriété (avec confirmation)">Supprimer la copropriété <?= $condominium->name() ?>&hellip;</a>
                     <div class="modal fade" id="delConModal-<?= $condominium->id() ?>">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">

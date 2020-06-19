@@ -7,7 +7,7 @@
                     </button>                
                     <button type="submit" class="btn btn-sm btn-primary semi-width  moveDocument" name="down" <?= $i == count($$category_var) - 1 ? 'disabled' : '' ?>><?= $i == count($$category_var) - 1 ? '<i class="fas fa-minus"></i>' : '<i class="fas fa-arrow-down"></i>' ?>
                     </button>                
-                    <a id="opendoc-<?=$document->id()" href="<?= $pdfdownload_dir . $document->file_name() ?>" target="_blank" class="btn btn-outline-info chr_opendoc" title="Ouvrir le document dans un nouvel onglet"><i class="far fa-eye"></i></a>
+                    <a id="opendoc-<?=$document->id() ?>" href="<?= $pdfdownload_dir . $document->file_name() ?>" target="_blank" class="btn btn-outline-info chr_opendoc" title="Ouvrir le document dans un nouvel onglet"><i class="far fa-eye"></i></a>
                     <button type="button" class="btn btn-outline-success popable" id="button-<?= $document->id() ?>" title="Modification du nom / Changement de catégorie / Suppression du document"><i class="fas fa-plus"></i></button>
                 </div>
             </form>
@@ -103,7 +103,7 @@
                             </div>
                             <input type="text" class="form-control" name="value" value="<?= $document->name() ?>" required>
                             <div class="input-group-append">
-                                <button id="nameChange-<?= $document->id() ?>" class="btn btn-primary modifDocFormLevel1" id=""><i class="fas fa-save" title="Enregistrer le nom"></i></button>
+                                <button id="nameChange-<?= $document->id() ?>" class="btn btn-primary modifDocFormLevel1" id=""><i class="fas fa-save" title="Enregistrer le nouveau nom"></i></button>
                             </div>
                         </div>
                     </form>
@@ -135,8 +135,7 @@
                     </form>
                 </div>
                 <div class="col-sm-2 text-right">
-                            <button type="button" class="btn btn-outline-secondary btn-sm mt-1 mb-3" onClick="document.getElementById('modifDocDiv-<?= $document->id() ?>').classList.add('d-none')"  title="Fermer ce volet">&nbsp;<i class="fas fa-times"></i>&nbsp;</button>
-                            <a href="#delModal-<?= $document->id() ?>" class="btn btn-warning btn-sm mt-1 mb-3" name="submitDeleteDoc" data-toggle="modal" title="Supprimer ce document…">&nbsp;<i class="fas fa-trash-alt"></i>&nbsp;&hellip;&nbsp;</a>
+                            <a href="#delModal-<?= $document->id() ?>" class="btn btn-warning btn-sm mt-1 mb-3" name="submitDeleteDoc" data-toggle="modal" title="Supprimer ce document (avec confirmation)">Supprimer&hellip;&nbsp;</a>
                 </div>
             </div>
             <!-- The Modal -->

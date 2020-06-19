@@ -115,7 +115,7 @@ else
     if (isset($general_assembly))
     {
         ?>
-                            <a href="#delModal-<?= $general_assembly->id() ?>" class="btn btn-warning" name="submitDeleteGA" data-toggle="modal">Supprimer...</a>
+                            <a href="#delModal-<?= $general_assembly->id() ?>" class="btn btn-warning" name="submitDeleteGA" data-toggle="modal" title="Supprimer cette assemblée générale (avec confirmation)">Supprimer&hellip;</a>
 
 <?php                            
     }

@@ -3,7 +3,7 @@
                 <td class="small"><?= $photo->file_name() ?></td>
                 <td class="ph-position text-center"><?= $photo->position() ?></td>
                 <td class="text-right">
-                    <a href="#delPhoModal-<?= $photo->id() ?>" class="btn btn-sm btn-warning" name="submitDeleteDoc" data-toggle="modal">Supprimer...</a>
+                    <a href="#delPhoModal-<?= $photo->id() ?>" class="btn btn-sm btn-warning" name="submitDeleteDoc" data-toggle="modal" title="Supprimer cette photo (avec confirmation)">Supprimer...</a>
                     <div class="modal fade" id="delPhoModal-<?= $photo->id() ?>">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">

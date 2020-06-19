@@ -11,19 +11,19 @@ function disableButtons(tbodyElement){
     const downArray = tbodyElement.querySelectorAll('button[name="down"]');
     upArray.forEach(function(item) {
        if (item == upArray[0]) {
-           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">remove</i>';
+           item.innerHTML = '<i class="fas fa-minus"></i>';
            item.disabled = true;
        } else {
-           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_upward</i>';
+           item.innerHTML = '<i class="fas fa-arrow-up"></i></i>';
            item.disabled = false;
        }
     });
     downArray.forEach(function(item) {
        if (item == downArray[downArray.length - 1]) {
-           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">remove</i>';
+           item.innerHTML = '<i class="fas fa-minus"></i>';
            item.disabled = true;
        } else {
-           item.innerHTML = '<i class="material-icons md-light" style="font-size: 16px; color: #FFFFFF;">arrow_downward</i>';
+           item.innerHTML = '<i class="fas fa-arrow-down"></i>';
            item.disabled = false;
        }
     });

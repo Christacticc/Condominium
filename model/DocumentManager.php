@@ -301,7 +301,7 @@ class DocumentManager {
         AND d.do_fk_category_id = ' . $category_id . ' 
         AND d.do_fk_type_id <> :type__id 
         AND d.do_available = ' . 1 . ' 
-        ORDER BY d.do_creation_time DESC');
+        ORDER BY d.do_sort_number DESC');
         $q->bindValue(':type__id', 1); // 1 est le type "fiche synthétique" que l'on élimine
         $q->execute();
         while ($data = $q->fetch(PDO::FETCH_ASSOC))
@@ -323,7 +323,7 @@ class DocumentManager {
             c.ca_name category_name,
             o.co_name condominium_name, 
             o.co_internal_reference condominium_internal_reference, 
-            d.do_available available, 
+            d.do_available available,
             d.do_fk_category_id category_id, 
             d.do_fk_condominium_id condominium_id, 
             d.do_creation_time creation_time, 
