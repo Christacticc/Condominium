@@ -558,16 +558,29 @@ for (let i = 0; i < moveDocumentFormArray.length; i++) {
 
 /*== Script d'envoi des formulaires de suppression de document BEGIN********/
 function responseDeleteDocDeal(response) { 
-    //   console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+//       console.log('Après : ' + response + ' -  typeof : ' + typeof response);
     if (/[0-9]+/.test(response)) {
         if (document.getElementById('condominiumView')) { // Page Copropriété
             let tr1 = document.getElementById('tr-' + response); 
             let tr2 = document.getElementById('modifDocDiv-' + response);
+            let tbodyElement = tr1.parentNode;
             if (tr1.parentNode) {
                 tr1.parentNode.removeChild(tr1);
             }
             if (tr2.parentNode) {
                 tr2.parentNode.removeChild(tr2);
+            }
+            disableButtons (tbodyElement);
+            //mettre à jour le nombre de documents dans le titre 
+            let nbDocuments = tbodyElement.querySelectorAll('TR[id]').length / 2;
+            let titleTR = tbodyElement.children[0];
+            let categoryName = titleTR.firstElementChild.firstElementChild.innerText;
+            titleTR.firstElementChild.firstElementChild.innerText = categoryName.replace(/^((.)+\s)\(\d+\)$/,  '$1 (' + nbDocuments + ')');
+            //mettre à jour la ligne d'entête des colonnes de la catégorie
+            if (nbDocuments == 0) {
+                titleTR.nextElementSibling.innerHTML = '<td class="text-muted" colspan="10">Aucun document pour cette catégorie</td>';
+            } else {
+                titleTR.nextElementSibling.innerHTML = '<td class="small" style="border-right: none"></td><td class="small" style="border-left: none; width: 310px"><strong>Nom</strong></td><td class="small" style="width: 200px"><strong>Fichier</strong></td><td class="small"><strong>Création</strong></td><td class="small"><strong>Modification</strong></td><td class="text-center small"><strong>Type</strong></td><td class="text-center small" colspan="2"><strong>Publié</strong></td><td class="text-center small" colspan="2"><strong>Suivi</strong></td>';
             }
         } else if (document.getElementById('filesConf')){
             let card = document.getElementById('card-' + response);
@@ -672,22 +685,15 @@ for (let i = 0; i < popableArray.length; i++) {
                 let formId = 'modifDocDiv-' + eltIdSplit[1];
                 let buttonElement = document.getElementById('button-' + eltIdSplit[1]);
                 let modifDocElement = document.getElementById(formId);
-                document.getElementById(eltId).addEventListener('click', function (e) {
-                    const modifDocDivArray = document.getElementsByClassName('modifDocDiv');
-                    /*for (let j = 0; j < modifDocDivArray.length; j++)
-                    {
-                        let formElement = modifDocDivArray[j];
-                        if (!formElement.classList.contains("d-none"))
-                            {
-                                formElement.classList.add('d-none');
-                            }
-                    }*/
+                document.getElementById(eltId).addEventListener('click', function () {
                     if (!modifDocElement.classList.contains("d-none")) { 
                         modifDocElement.classList.add('d-none');
                         buttonElement.innerHTML = '<i class="fas fa-plus"></i>';
+                        buttonElement.title = 'Modification du nom / Changement de catégorie / Suppression du document';
                     } else {
-                        modifDocElement.classList.remove('d-none');                        
+                        modifDocElement.classList.remove('d-none');
                         buttonElement.innerHTML = '<i class="fas fa-minus"></i>';
+                        buttonElement.title = "Fermer le volet";
                     }
                 });                
             }

@@ -2,6 +2,8 @@
 
 Migration v1.0.0 à v1.1.0
 
+0) Prévenir le client
+
 1) Faire 1 sauvegarde intégrale du site distant avec ses images, documents et base de donnée.
 
 2) Modifier à la main les fichiers :
@@ -11,7 +13,7 @@ Migration v1.0.0 à v1.1.0
 
 3) Vérifier et modifier si nécessaire les fichiers :
  - View/backend/logginFormView.php pour les paramètres de recaptcha,
- - View/fronend/logginCoproView.php pour les paramètres de recaptcha,
+ - View/frontend/logginCoproView.php pour les paramètres de recaptcha,
  - includes/headlinks pour les favicons
  
  4) vérifier le dossier public/images

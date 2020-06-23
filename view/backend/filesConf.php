@@ -7,7 +7,7 @@
     <div class="card bg-light p-2 mb-4">
         <div class="row">
             <div class="col-sm-2">
-                <h6><?php if(count($documents) == 0){echo('Aucun fichier à confirmer');}elseif(count($documents) == 1){echo('1 fichier à confirmer');}else{echo(count($documents)  . ' fichiers à confirmer');} ?> pour </h6>
+                <h6>Confirmer les fichiers pour </h6>
             </div>
             <div class="col-sm-6">
                 <h1><?= $condominium->name() ?></h1>
@@ -23,7 +23,7 @@
 if (empty($documents)) {
 ?>
 <section class="container">
-    <p class="text-muted">Aucun document à confirmer pour cette copropriété</p>
+    <p class="text-muted">Aucun fichier à confirmer pour cette copropriété</p>
 </section>
 <?php    
 } else {

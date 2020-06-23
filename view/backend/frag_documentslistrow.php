@@ -142,6 +142,10 @@
             <div class="modal fade" id="delModal-<?= $document->id() ?>">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+                            
+<?php
+                if($downloads_count[$document->id()] === 0) {
+?>                    
                         <!-- Modal body -->
                         <div class="modal-body">
                             <p class="text-center"><strong><?= $document->name() ?></strong></p>
@@ -157,6 +161,24 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-sm  btn-outline-secondary" data-dismiss="modal">Non, annuler</button>
                         </div>
+<?php
+                } else {
+?>                    
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <p class="text-center"><strong><?= $document->name() ?></strong></p>
+                            <p>Pour supprimer cette copropriété, il faut au préalable supprimer toutes ses informations de téléchargements.</p>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn  btn-outline-secondary" data-dismiss="modal">Fermer</button>
+                                <a href="?dlview=doc&doc=<?= $document->id() ?>" class="btn btn-success" title="Ouvrir la liste des téléchargements.">Téléchargements <span class="badge badge-pill badge-light"><?= $downloads_count[$document->id()] ?></span></a>
+                            </div>
+                        </div>
+<?php                  
+                }
+?>                                      
                     </div>
                 </div>
             </div>

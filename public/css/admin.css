@@ -64,14 +64,13 @@ fieldset.sag legend {
 .btn-group > .btn + .btn-outline-success:active {
     border-left: rgb(140, 210, 152) 1px solid; 
 }
-.btn-group > .btn + .btn-primary,
-.btn-group > .btn + .btn-primary:link,
-.btn-group > .btn + .btn-primary:visited,
-.btn-group > .btn + .btn-primary:hover,
-.btn-group > .btn + .btn-primary:focus,
-.btn-group > .btn + .btn-primary:active,
-.btn-group > .btn + .btn-primary:disabled,
-.btn-group > .btn + .btn-primary:disabled,
+.btn-group > .btn-primary + .btn-primary,
+.btn-group > .btn-primary + .btn-primary:link,
+.btn-group > .btn-primary + .btn-primary:visited,
+.btn-group > .btn-primary + .btn-primary:hover,
+.btn-group > .btn-primary + .btn-primary:focus,
+.btn-group > .btn-primary + .btn-primary:active,
+.btn-group > .btn-primary + .btn-primary:disabled,
 .input-group-append .btn-primary + .btn-primary,
 .input-group-append .btn-primary + .btn-primary:link,
 .input-group-append .btn-primary + .btn-primary:visited,
@@ -79,12 +78,12 @@ fieldset.sag legend {
 .input-group-append .btn-primary + .btn-primary:focus,
 .input-group-append .btn-primary + .btn-primary:active,
 .input-group-append .btn-primary:hover + .btn-primary:disabled,
-.btn-group > .btn:link + .btn-primary,
-.btn-group > .btn:visited + .btn-primary,
-.btn-group > .btn:hover + .btn-primary,
-.btn-group > .btn:focus + .btn-primary,
-.btn-group > .btn:active + .btn-primary,
-.btn-group > .btn:disabled + .btn-primary,
+.btn-group > .btn-primary:link + .btn-primary,
+.btn-group > .btn-primary:visited + .btn-primary,
+.btn-group > .btn-primary:hover + .btn-primary,
+.btn-group > .btn-primary:focus + .btn-primary,
+.btn-group > .btn-primary:active + .btn-primary,
+.btn-group > .btn-primary:disabled + .btn-primary,
 .input-group-append .btn-primary + .btn-primary,
 .input-group-append .btn-primary:link + .btn-primary,
 .input-group-append .btn-primary:visited + .btn-primary,
@@ -301,8 +300,9 @@ LABEL.custom-file-label {
     margin-bottom: 0;
     color: #495057;
 }
-body *:not(FIELDSET)>DIV>DIV>.label,
-body *:not(FIELDSET)>DIV>DIV>LABEL:not(.custom-file-label) {
+BODY *:not(FIELDSET)>DIV>DIV>.label,
+BODY *:not(FIELDSET)>DIV>DIV>LABEL:not(.custom-file-label),
+.custom-control-label {
     font-size: 0.8rem;
     font-weight: 700;
 }
