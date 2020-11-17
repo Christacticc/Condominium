@@ -18,7 +18,7 @@ include "nav.php";
             <div class="col-xs-12 col-sm-2 orange un-un-sm">
                 <div class="bloc-text">
                     <h1 style="margin-bottom: 5px">Mon espace copropriété</h1>
-                    <form action="index.php" method="post" class="small"><button type="submit" id="deconnection" class="btn btn-link" name="deconnection" style="color:white">Déconnexion</button></form>
+                    <form action="index.php" method="post" class="small"><button type="submit" id="deconnection" class="btn btn-link" name="deconnection">Déconnexion</button></form>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-2 gris-2 un-un-sm">

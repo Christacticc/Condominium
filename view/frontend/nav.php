@@ -6,40 +6,39 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a id="logoConseilsNav" title="Sagnimorte Conseils" class="navbar-brand" href="../index.php"><img alt="Logo Sagnimorte Conseils" src="../public/images/logos/SAGNIMORTE-CONSEILS_logo_325x90.png"></a>
-          <a id="logoGestionNav" title="Sagnimorte Gestion" class="navbar-brand" href="../index.php"><img alt="Logo Sagnimorte Gestion" src="../public/images/logos/SAGNIMORTE-GESTION_logo_325x90.png"></a>
+          <a id="logoNav" title="" class="navbar-brand" href="#"><img alt="Logo" src="./public/images/logos/logo_325x90.png"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a class="ajaxnav" title="Sagnimorte Conseil" href="../index.php">Accueil</a></li>
+            <li><a class="ajaxnav" title="Sagnimorte Conseil" href="#">Accueil</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Conseils
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a class="ajaxnav" title="Sagnimorte Conseils - Qui nous sommes" href="../quinoussommes.php">Qui nous sommes</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Conseils - Le conseil" href="../leconseil.php">Le conseil</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Conseils - Nos atouts" href="../nosatouts.php">Nos atouts</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Conseils - Équipe" href="../equipe.php">Équipe</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Conseils - Témoignages" href="../temoignages.php">Témoignages</a></li>
+                <li><a class="ajaxnav" title="Qui nous sommes" href="#">Qui nous sommes</a></li>
+                <li><a class="ajaxnav" title="Le conseil" href="#">Le conseil</a></li>
+                <li><a class="ajaxnav" title="Nos atouts" href="">Nos atouts</a></li>
+                <li><a class="ajaxnav" title="Équipe" href="#">Équipe</a></li>
+                <li><a class="ajaxnav" title="Témoignages" href="#">Témoignages</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestion
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a class="ajaxnav" title="Sagnimorte Gestion - Qui nous sommes" href="../quinoussommes.php?a=g">Qui nous sommes</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Gestion - La gestion" href="../lagestion.php">La gestion</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Gestion - Nos immeubles" href="../nosimmeubles.php">Nos immeubles</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Gestion - Médiation" href="../mediation.php">Médiation</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Gestion - Équipe" href="../equipe.php?a=g">Équipe</a></li>
-                <li><a class="ajaxnav" title="Sagnimorte Gestion - Témoignages" href="../temoignages.php?a=g">Témoignages</a></li>
+                <li><a class="ajaxnav" title="Qui nous sommes" href="#">Qui nous sommes</a></li>
+                <li><a class="ajaxnav" title="La gestion" href="#">La gestion</a></li>
+                <li><a class="ajaxnav" title="Nos immeubles" href="#">Nos immeubles</a></li>
+                <li><a class="ajaxnav" title="Médiation" href="#">Médiation</a></li>
+                <li><a class="ajaxnav" title="Équipe" href="#">Équipe</a></li>
+                <li><a class="ajaxnav" title="Témoignages" href="#">Témoignages</a></li>
               </ul>
             </li>
-            <li><a class="ajaxnav" title="Sagnimorte Conseils - Vidéos" href="../videos.php">Vidéos</a></li>
-            <li><a class="ajaxnav" title="Sagnimorte Conseils - Contact" href="?contact=1">Contact</a></li>
+            <li><a class="ajaxnav" title="Vidéos" href="#">Vidéos</a></li>
+            <li><a class="ajaxnav" title="Contact" href="#">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a class="ajaxnav" title="Sagnimorte Gestion - Votre espace copro" href="index.php"><span><span>Votre</span><span>espace</span><span>c<span>o</span>pro</span></span><div class="largeonly"></div></a></li>
+              <li><a class="ajaxnav" title="Votre espace copro" href="index.php">Votre espace copro</a></li>
           </ul>
         </div><!--/.nav-collapse -->
     </nav>

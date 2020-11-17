@@ -484,7 +484,6 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
                 {
                     if ($action == 'modification')
                     {
-                        echo('modif');
                         $param['id'] = $general_assembly_id;
                         $general_assembly = new General_assembly($param); // Créer le nouvel objet
                         $general_assembly = $general_assemblyManager->update($general_assembly);
