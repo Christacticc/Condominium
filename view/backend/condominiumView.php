@@ -399,7 +399,7 @@ const types = [];
                                 <div class="modal-body text-left">
                                     <p class="text-center"><strong><?= $condominium->name() ?></strong></p>
 <?php
-  if ((!isset($general_assembly)) && empty($photos) && empty($documents))
+  if ((!isset($general_assembly)) && empty($photos) && empty($documents) && $filestoconfirm == 0 )
   {
 ?>
                                     <p>Êtes-vous certain de vouloir supprimer cette copropriété&nbsp;?</p>
@@ -419,7 +419,9 @@ const types = [];
                        else
                        {
 ?>
-                                <p>Pour supprimer cette copropriété, il faut au préalable supprimer toutes ses dépendances : assemblée générale, documents et photos.</p>
+								<p>Pour supprimer cette copropriété, il faut au préalable supprimer toutes ses dépendances.</p>
+								<p><?= $condominium->name() ?> possède encore :</p>
+								<ul><?php if(isset($general_assembly)){echo("<li>1 assemblée générale</li>");} ?><?php if(count($documents) != 0){if(count($documents) == 1){echo('<li>1 document</li>');}else{echo('<li>' . count($documents) . ' documents</li>');}} ?><?php if($filestoconfirm != 0){if($filestoconfirm == 1){echo('<li>1 fichier à confirmer</li>');}else{echo('<li>' . $filestoconfirm . ' fichiers à confirmer</li>');}} ?><?php if(count($photos) != 0){if(count($photos) == 1){echo('<li>1 photo</li>');}else{echo('<li>' . count($photos) . ' photos</li>');}} ?></ul>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
