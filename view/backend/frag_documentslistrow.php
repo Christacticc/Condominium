@@ -1,4 +1,5 @@
-    <tr id="tr-<?= $document->id() ?>">
+<!-- Les 2 lignes de tableau d'un document dans la page d'un condominium -->
+	<tr id="tr-<?= $document->id() ?>">
         <td class="td-view text-center p-1"  id="td-view-<?= $document->id() ?>" style="border-right: none">
             <form id="moveDocumentForm-<?= $document->id() ?>" class="moveDocumentForm">
                 <input type="hidden" name="document_id" value="<?= $document->id() ?>">

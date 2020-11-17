@@ -57,6 +57,12 @@ class DocumentManager {
         return (int) $q->fetchColumn();
     }
 
+    public function countWithCondominium($condominium_id)
+    {
+        $q = $this->_db->query('SELECT COUNT(*) FROM s_document WHERE do_fk_condominium_id = ' . (int) $condominium_id);
+        return (int) $q->fetchColumn();
+    }
+
     public function countWithCondominiumAndCategory($condominium_id, $category_id)
     {
         $q = $this->_db->query('SELECT COUNT(*) FROM s_document 

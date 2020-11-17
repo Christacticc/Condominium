@@ -255,7 +255,7 @@ const types = [];
     <div class="card bg-light p-2 mt-4 mb-0" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none">
         <div class="row">
             <div class="col-sm-4">
-                <h1 class="h3"><span class="h6"><?php if(count($documents) == 0){echo('Aucun document pour cette copropriété');}else{if(count($documents) == 1){echo('1 document');}else{echo(count($documents) . ' documents');}} ?></span></h1>
+                <h1 class="h3" id="documentsNumber"><span class="h6"><?php if(count($documents) == 0){echo('Aucun document pour cette copropriété');}else{if(count($documents) == 1){echo('1 document');}else{echo(count($documents) . ' documents');}} ?></span></h1>
             </div>
             <div class="col-sm-8 my-2 text-right">
                 <form method="post" action="index.php">

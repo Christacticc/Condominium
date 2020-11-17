@@ -34,10 +34,17 @@ try
                         $document_to_go_down->setSort_number($document_to_go_down->sort_number() - 1);
                         $documentManager->update($document_to_go_down);
                     }
-                    $response = $_GET['id'];
-                    unlink($pdfupload_dir . $document->file_name());
+					// Nombre de documents de ce condominium dans la catégorie du document suprimé
+					// Nombre de documents de ce condominium					
+					$deleted_array['condominiumDocuments'] = $documentManager->countWithCondominium($document->condominium_id());
+					$deleted_array['categoryCondominiumDocuments'] = $documentManager->countWithCondominiumAndCategory($document->condominium_id(), $document->category_id());
+					$deleted_array['documentId'] = $_GET['id'];
+					$response = json_encode($deleted_array);
+
+					unlink($pdfupload_dir . $document->file_name());
                     unset($document);
-                    echo ($response);
+
+					echo ($response);
                 }
                 else
                 {

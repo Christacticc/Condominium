@@ -1,5 +1,5 @@
 // JavaScript Document
-
+console.log('ho l\'hallu didon !');
 
 /*==  Fonction ucfirst******************************************/
 function capitalizeFirstLetter(string) {
@@ -557,12 +557,18 @@ for (let i = 0; i < moveDocumentFormArray.length; i++) {
 
 
 /*== Script d'envoi des formulaires de suppression de document BEGIN********/
-function responseDeleteDocDeal(response) { 
-//       console.log('Après : ' + response + ' -  typeof : ' + typeof response);
-    if (/[0-9]+/.test(response)) {
+function responseDeleteDocDeal(response) {
+	console.log('Après : ' + response + ' -  typeof : ' + typeof response);
+	
+    if (response.substr(0, 1) == '{') {
+        let response_array = JSON.parse(response);
+        let deletedDocumentId = response_array['documentId'];
+        let nbDocuments = response_array['condominiumDocuments'];
+        let nbDocumentsInCategory = response_array['categoryCondominiumDocuments'];
+		
         if (document.getElementById('condominiumView')) { // Page Copropriété
-            let tr1 = document.getElementById('tr-' + response); 
-            let tr2 = document.getElementById('modifDocDiv-' + response);
+            let tr1 = document.getElementById('tr-' + deletedDocumentId); 
+            let tr2 = document.getElementById('modifDocDiv-' + deletedDocumentId);
             let tbodyElement = tr1.parentNode;
             if (tr1.parentNode) {
                 tr1.parentNode.removeChild(tr1);
@@ -571,20 +577,30 @@ function responseDeleteDocDeal(response) {
                 tr2.parentNode.removeChild(tr2);
             }
             disableButtons (tbodyElement);
-            //mettre à jour le nombre de documents dans le titre 
-            let nbDocuments = tbodyElement.querySelectorAll('TR[id]').length / 2;
+			// Mettre à jour le nombre total de documents
+			if (document.getElementById('documentsNumber')) {
+				if (nbDocuments == 0){
+					document.getElementById('documentsNumber').innerHTML = '<span class="h6">Aucun document pour cette copropriété</span>';
+				} else if (nbDocuments == 1) {
+					document.getElementById('documentsNumber').innerHTML = '<span class="h6">1 document</span>';
+				} else {
+					document.getElementById('documentsNumber').innerHTML = '<span class="h6">' + nbDocuments + ' documents</span>';
+				}
+			}
+            //mettre à jour le nombre de documents dans le titre de catégorie
+            // Old :let nbDocumentsInCategory = tbodyElement.querySelectorAll('TR[id]').length / 2;
             let titleTR = tbodyElement.children[0];
             let categoryName = titleTR.firstElementChild.firstElementChild.innerText;
-            titleTR.firstElementChild.firstElementChild.innerText = categoryName.replace(/^((.)+\s)\(\d+\)$/,  '$1 (' + nbDocuments + ')');
+            titleTR.firstElementChild.firstElementChild.innerText = categoryName.replace(/^((.)+\s)\(\d+\)$/,  '$1 (' + nbDocumentsInCategory + ')');
             //mettre à jour la ligne d'entête des colonnes de la catégorie
-            if (nbDocuments == 0) {
+            if (nbDocumentsInCategory == 0) {
                 titleTR.nextElementSibling.innerHTML = '<td class="text-muted" colspan="10">Aucun document pour cette catégorie</td>';
             } else {
                 titleTR.nextElementSibling.innerHTML = '<td class="small" style="border-right: none"></td><td class="small" style="border-left: none; width: 310px"><strong>Nom</strong></td><td class="small" style="width: 200px"><strong>Fichier</strong></td><td class="small"><strong>Création</strong></td><td class="small"><strong>Modification</strong></td><td class="text-center small"><strong>Type</strong></td><td class="text-center small" colspan="2"><strong>Publié</strong></td><td class="text-center small" colspan="2"><strong>Suivi</strong></td>';
             }
-        } else if (document.getElementById('filesConf')){
-            let card = document.getElementById('card-' + response);
-            let delModal = document.getElementById('delModal-' + response);
+        } else if (document.getElementById('filesConf')){ // Page Confirmation de documents
+            let card = document.getElementById('card-' + deletedDocumentId);
+            let delModal = document.getElementById('delModal-' + deletedDocumentId);
             if (card.parentNode) {
                 card.parentNode.removeChild(card);
             }
