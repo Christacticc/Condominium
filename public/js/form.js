@@ -1,6 +1,5 @@
 // JavaScript Document
-console.log('ho l\'hallu didon !');
-
+console.log('oui');
 /*==  Fonction ucfirst******************************************/
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -145,7 +144,7 @@ if (document.getElementById('postal_code'))
             document.getElementById('message').innerHTML = "";
 
             if (postal_code.length == 5) {
-                console.log('Avant : ' + postal_code);
+//                console.log('Avant : ' + postal_code);
                 ajaxGet('ajax_cityfinder.php?pc=' + postal_code, responsePostalCodeDeal);
             }
             else{
@@ -289,8 +288,8 @@ for (let i = 0; i < modifDivArray.length; i++)
             let message = '';
             let ajax = ''
             let submitedForm = e.target;
-            console.log ('modifFormId : ' + submitedForm.id);
-            console.log('modifDivId : ' + modifDivId);
+//            console.log ('modifFormId : ' + submitedForm.id);
+//            console.log('modifDivId : ' + modifDivId);
 //            console.log('length : ' + submitedForm.querySelectorAll('input, select').length);
             if (submitedForm.querySelectorAll('input, select, textarea').length == 2)
                 {    
@@ -303,13 +302,13 @@ for (let i = 0; i < modifDivArray.length; i++)
                         else
                             {
                                 ajax = '?id=' + submitedForm.querySelectorAll('input, select, textarea')[0].value + '&' + submitedForm.querySelectorAll('input, select, textarea')[1].name + '=' + submitedForm.querySelectorAll('input, select, textarea')[1].value;
-                                console.log('ajx 214 : ' + ajax);
+ //                               console.log('ajx 214 : ' + ajax);
                             }
                     }
                     else // Not required.
                         {
                             ajax = '?id=' + submitedForm.querySelectorAll('input, select, textarea')[0].value + '&' + submitedForm.querySelectorAll('input, select, textarea')[1].name + '=' + submitedForm.querySelectorAll('input, select, textarea')[1].value;
-                            console.log('ajx 220 : ' + ajax);
+//                            console.log('ajx 220 : ' + ajax);
                         }
                 }
             else if (submitedForm.querySelectorAll('input, select').length == 3) // length 3 donc code postal
@@ -323,14 +322,14 @@ for (let i = 0; i < modifDivArray.length; i++)
                             else
                                 {
                                     ajax = '?id=' + submitedForm.querySelectorAll('input')[0].value + '&postal_code=' + document.getElementById('postal_code').value;
-                                    console.log('ajx 234 : ' + ajax);
+//                                    console.log('ajx 234 : ' + ajax);
                                 }
                             if (document.getElementById('city').value == '')
                                 {
                                     message = 'Ce champ doit être rempli';
                                 }
                                     ajax += '&city=' + document.getElementById('city').value;
-                                    console.log('ajax 241 : ' + ajax);
+//                                    console.log('ajax 241 : ' + ajax);
                         }
                 }
             if (message == '')
@@ -811,7 +810,6 @@ if (document.getElementsByClassName('select-one-checkbox'))
         for(let i=0; i<checkboxes.length; i++)
             {
                 checkboxes[i].addEventListener('click', function(e) {
-                    console.log('clic');
                     let yes = 0;
                     let no = 0;
                     for(let i=0; i<checkboxes.length; i++)

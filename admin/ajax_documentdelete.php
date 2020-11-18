@@ -25,7 +25,7 @@ try
         {
             $documentManager = new DocumentManager($db);
             $document = $documentManager->get($_GET['id']);
-            if ($sort_number = $document->sort_number()) {
+            if ($sort_number = $document->sort_number()) { //S'il y a un sort_number, alors c'est un document confirmé et on est sur la page du condominium
                 $documents_to_go_down = $documentManager->getListToGoDown($document->condominium_id(), $document->category_id(), $sort_number);
                 $count = $documentManager->delete($_GET['id']);
                 if ($count == 1)
@@ -51,11 +51,12 @@ try
                     echo ('Un problème est survenu pendant la suppression : response = ' . $response);
                 }
                 
-            } else {
+            } else { // S'il n'y a pas de sort_number, alors c'est un fichier non comfirmé et on est sur la page de confirmation de fichiers
                 $count = $documentManager->delete($_GET['id']);
                 if ($count == 1)
                 {
-                    $response = $_GET['id'];
+					$deleted_array['documentId'] = $_GET['id'];
+					$response = json_encode($deleted_array);
                     unlink($pdfupload_dir . $document->file_name());
                     unset($document);
                     echo ($response);
