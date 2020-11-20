@@ -16,13 +16,14 @@ class General_assembly {
     private $_webinar_url;
     private $_room;
     
-    const NAME_1 = 'Place M<sup>al</sup> Lyautey';
-    const ADDRESS_1_1 = '12, place Maréchal Lyautey';
+	//Adresses des lieu de réunion pour les assemblées générales
+    const NAME_1 = 'Salle en location';
+    const ADDRESS_1_1 = '12, place de l\'église';
     const ADDRESS_2_1 = NULL;
     const POSTAL_CODE_1 = '69006';
     const CITY_1 = 'LYON';
-    const NAME_2 = 'Rue Duguesclin';    
-    const ADDRESS_1_2 = '102, rue Dugesclin';
+    const NAME_2 = 'Salle du siège';    
+    const ADDRESS_1_2 = '102, rue des Vendanges';
     const ADDRESS_2_2 = NULL;
     const POSTAL_CODE_2 = '69006';
     const CITY_2 = 'LYON'; 

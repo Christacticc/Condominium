@@ -40,7 +40,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 <?php        
     }
 ?>    
-        </div>
+            <span class="text-info small">&nbsp;Le jeu de démonstration est réinitialisé chaque heure à l'heure et 25 minutes.</span>		</div>
 <?php
 }
 ?>
