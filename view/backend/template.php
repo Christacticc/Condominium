@@ -30,17 +30,33 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 ?>
         <!-- body code goes here -->
         <div class="container top-buttons">
-            <span class="text-info small">&nbsp;<?= $user_name ?>&nbsp;</span>
-            <a href="?deconnection=1" class="badge badge-info sag-link sag-decon">Déconnexion</a>
+			<div class="row">
+				<div class="col-sm-10">
+					<span class="text-info small">&nbsp;<?= $user_name ?>&nbsp;</span>
+					<a href="?deconnection=1" class="badge badge-info">Déconnexion</a>
 <?php
     if ($_SESSION['user'] == 1 && $bodyid != 'admin')
     {
 ?>        
-            <a href="?admin=1" class="badge badge-dark sag-link sag-admin">Administration</a>
+		            <a href="?admin=1" class="badge badge-dark">Administration</a>
 <?php        
     }
 ?>    
-            <span class="text-info small">&nbsp;Le jeu de démonstration est réinitialisé chaque heure à l'heure et 25 minutes.</span>		</div>
+		            <span class="text-info small">&nbsp;Le jeu de démonstration est réinitialisé chaque heure à l'heure et 25 minutes.</span>
+				</div>
+<?php
+    if ($_SESSION['user'] == 1 && $bodyid == 'condominiumView')
+	{
+?>
+
+				<div class="col-sm-2 text-right">
+					<a href="../" class="badge badge-info">Site public</a>
+				</div>
+<?php		
+	}
+ ?>
+			</div>
+		</div>
 <?php
 }
 ?>

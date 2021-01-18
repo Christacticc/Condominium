@@ -30,6 +30,15 @@ $excluded_categories = array($uploaded_category_name); // Array des catégories 
 $userManager = new UserManager($db);
 
 function condominiumDisplay($condominium_id) {
+	if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet.
+	{
+		require('../config/connect.php');
+
+		$user_id = $_SESSION['user'];
+		$userManager = new UserManager($db);
+		$user = $userManager->get($user_id);
+		$user_name = $user->name();
+	}
     require('../config/connect.php');
     $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
     $phoupload_dir = '../pho/'; // À modifier aussi dans les ajax_...
