@@ -18,6 +18,7 @@ if (isset($_GET['deconnection']))
 }
 
 require('../config/connect.php');
+require('../config/vars.php');
 
 $pdfupload_dir = '../pdf/'; // À modifier aussi dans les ajax_...
 $phoupload_dir = '../pho/'; // À modifier aussi dans les ajax_...
@@ -947,7 +948,7 @@ else // Si la session user n'existe pas, est-ce qu'on vient du formulaire d'iden
             else
             {
                 // On prépare l'URL
-                $url = "https://www.google.com/recaptcha/api/siteverify?secret=6LdC--4UAAAAACU9a4nqU-hmxWcIOS9SoWkxNj6x&response={$_POST['recaptcha-response']}";
+                $url = "https://www.google.com/recaptcha/api/siteverify?secret={$recaptchakey}&response={$_POST['recaptcha-response']}";
                 // On vérifie si curl est installé
                 if(function_exists('curl_version'))
                 {

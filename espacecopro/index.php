@@ -83,7 +83,7 @@ else
                 else
                 {
                     // On prépare l'URL
-                    $url = "https://www.google.com/recaptcha/api/siteverify?secret=6LdC--4UAAAAACU9a4nqU-hmxWcIOS9SoWkxNj6x&response={$_POST['recaptcha-response']}";
+                    $url = "https://www.google.com/recaptcha/api/siteverify?secret={$recaptchakey}&response={$_POST['recaptcha-response']}";
                     // On vérifie si curl est installé
                     if(function_exists('curl_version'))
                     {
