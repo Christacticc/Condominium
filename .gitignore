@@ -5,11 +5,13 @@ _notes/
 /bower_components/
 /node_modules/
 pdf/**
+pdf-base/**
 pho/**
+pho-base/**
 config/**
 vendor/bootstrap/**
 vendor/dropzone-5.7.0/**
 admin/drop*
 * - Copie.php
 *.temp.php
-
+*favicon_*.png
