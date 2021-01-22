@@ -6,6 +6,7 @@ _notes/
 /node_modules/
 pdf/**
 pho/**
+config/**
 vendor/bootstrap/**
 vendor/dropzone-5.7.0/**
 admin/drop*
