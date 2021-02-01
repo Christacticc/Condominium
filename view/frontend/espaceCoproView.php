@@ -1,4 +1,4 @@
-<?php $title = $condominium->name() ?>
+<?php $title = $condominium->name(); ?>
 <?php $bodyid = 'espaceCoproView'; ?>
 
 <?php ob_start(); ?>

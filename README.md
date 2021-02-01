@@ -38,9 +38,10 @@ Migration v1.0.0 à v1.1.0
  
  
  Todo 
+- Remplacer Bootstrap 3 par Bootstrap 4 dans le front.
 - Dans view/frontend/espacecoproView.php : mettre des icônes de catégorie devant chaque document recent et dans les titres des onglets de catégorie.
 - Dans view/frontend/espacecoproView.php : mettre les vignettes imagick au survol des documents.
-- Dans view/backend/frag_documentslistrow.php : mettre les vignettes imagick au survol des boutons d'ouverture des documents eye._
+- Dans view/backend/frag_documentslistrow.php : mettre les vignettes imagick au survol des boutons d'ouverture des documents eye.
 - Réorganiser les fichiers pour faciliter les migration : connexion, recaptcha...
-- Appliquer une architecture MVC.
+- Appliquer une architecture MVC : scinder le fichier admin/index.php en plusieurs contrôleurs et en faire un routeur.
 - Installer l'appli sur un cloud pour SAAS.
