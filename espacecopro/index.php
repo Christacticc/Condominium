@@ -24,6 +24,7 @@ if (isset($_POST['deconnection']))
 }
 
 require('../config/connect.php');
+require('../config/vars.php');
 
 $pdfdownload_dir = '../pdf/';//
 $phodownload_dir = '../pho/';
@@ -164,7 +165,8 @@ else
             {
                 $remember_member = $_COOKIE['remember_member'];
             }
-            $msg = '<i class="material-icons md-18 hidden-xs">arrow_back</i><i class="material-icons md-18 hidden-sm hidden-md hidden-lg">arrow_upward</i>&nbsp;Commencez à taper le nom ou un élément de l\'adresse de votre copropriété, puis choisissez dans la liste.';
+            $msg = '';
+//            $msg = '<i class="material-icons md-18 hidden-xs">arrow_back</i><i class="material-icons md-18 hidden-sm hidden-md hidden-lg">arrow_upward</i>&nbsp;Commencez à taper le nom ou un élément de l\'adresse de votre copropriété, puis choisissez dans la liste.';
             require('../view/frontend/logginCoproView.php');      
         }
     }

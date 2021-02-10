@@ -34,7 +34,7 @@ $(".custom-file-input").on("change", function() {
 
 /*== Scripts Bootstraps END **********************************/
 
-/*== Script du datalist member_feed lors de la frappedans l'input member_name BEGIN********/
+/*== Script du datalist member_feed lors de la frappe dans l'input member_name BEGIN********/
 function responseMemberDeal(response)
 {
     if (response.substr(0, 2) == '[{')
@@ -99,37 +99,37 @@ function responseMemberDeal(response)
 
 if (document.getElementById('member_name'))
     {
-        document.getElementById('member_name').focus();
+//        document.getElementById('member_name').focus();
 
-            if (document.getElementById('member_feed'))
+        if (document.getElementById('member_feed'))
+        {
+            const member_feed = document.getElementById('member_feed');
+            member_feed.size = 0;
+            member_feed.style.padding = 0;
+            member_feed.style.height = 0;
+            member_feed.style.borderWidth = 0;
+            document.getElementById('member_name').focus;
+
+        }
+        document.getElementById('member_name').addEventListener('input', function (event) {
+            const entry = event.target.value;
+            document.getElementById('member_feed').innerHTML = "";
+            if (entry.length >= 2) {
+                ajaxGet('ajax_memberfeed.php?e=' + entry, responseMemberDeal);
+            }
+            else
             {
                 const member_feed = document.getElementById('member_feed');
+                member_feed.innerHTML = "";
                 member_feed.size = 0;
                 member_feed.style.padding = 0;
                 member_feed.style.height = 0;
                 member_feed.style.borderWidth = 0;
-                document.getElementById('member_name').focus;
-
             }
-            document.getElementById('member_name').addEventListener('input', function (event) {
-                const entry = event.target.value;
-                document.getElementById('member_feed').innerHTML = "";
-                if (entry.length >= 2) {
-                    ajaxGet('ajax_memberfeed.php?e=' + entry, responseMemberDeal);
-                }
-                else
-                {
-                    const member_feed = document.getElementById('member_feed');
-                    member_feed.innerHTML = "";
-                    member_feed.size = 0;
-                    member_feed.style.padding = 0;
-                    member_feed.style.height = 0;
-                    member_feed.style.borderWidth = 0;
-                }
-            });
+        });
 
     }
-/*== Script de remplissage automatique du SELECT city - line_5 lors de la frappe END********/
+/*== Script du datalist member_feed lors de la frappe dans l'input member_name END********/
 /*== Script de soumission du formulaire de téléchargement BEGIN********/
 function responseDownloadDoc(response) { 
     console.log('Après : ' + response + ' -  typeof : ' + typeof response);
