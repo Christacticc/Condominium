@@ -29,16 +29,16 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 {    
 ?>
         <!-- body code goes here -->
-        <div class="container top-buttons">
+        <div class="container top-buttons py-1">
 			<div class="row">
 				<div class="col-sm-10">
 					<span class="text-info small">&nbsp;<?= $user_name ?>&nbsp;</span>
-					<a href="?deconnection=1" class="badge badge-info">Déconnexion</a>
+					<a href="?deconnection=1" class="btn btn-sm btn-info" style="line-height: 1">Déconnexion</a>
 <?php
     if ($_SESSION['user'] == 1 && $bodyid != 'admin')
     {
 ?>        
-		            <a href="?admin=1" class="badge badge-dark">Administration</a>
+		            <a href="?admin=1" class="btn btn-sm btn-dark" style="line-height: 1">Administration</a>
 <?php        
     }
 ?>    
@@ -50,7 +50,7 @@ if (isset($_SESSION['user'])) // Si la session perso existe, on restaure l'objet
 ?>
 
 				<div class="col-sm-2 text-right">
-					<a href="../" class="badge badge-info">Site public</a>
+                    <a href="../espacecopro/" class="btn btn-sm btn-info" style="line-height: 1" target="_blank"><i class="fas fa-external-link-square-alt"></i>&nbsp;Site public</a>
 				</div>
 <?php		
 	}

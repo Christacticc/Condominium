@@ -147,15 +147,13 @@ function responseDownloadDoc(response) {
             if (document_type_id == 1)
                 {
                     document.getElementById('fiche').innerHTML = 
-                        '<div class="bloc-text">' +
-                        '<p>Fiche synthétique de la copropriété au ' + creation_time +  '</p>' +
-                        '</div>' +
-                        '<a class="icone-link" href="' + document_link +'" target="_blank"><i class="fas fa-arrow-right"></i></a>'
+                        '<a href="' + document_link +'" target="_blank" class="text-success"><span class="material-icons">description</span>Fiche synthétique de la copropriété au ' + creation_time +  '</a>';
                 }
             // Documents récents
             if (document.getElementById('downloadLink_s2-' + document_id))
                 {
-                    document.getElementById('downloadLink_s2-' + document_id).innerHTML = '<strong>' + document_name + '</strong>';
+                    document.getElementById('downloadLink_s2-' + document_id).innerHTML = '<span class="material-icons">description</span>' + document_name;
+                    document.getElementById('downloadLink_s2-' + document_id).classList.add('text-success');
                     document.getElementById('downloadLink_s2-' + document_id).href = document_link;
                     document.getElementById('downloadLink_s2-' + document_id).setAttribute('data-toggle', '');
                     document.getElementById('downloadLink_s2-' + document_id).setAttribute('target', '_blank');
@@ -163,7 +161,8 @@ function responseDownloadDoc(response) {
             // Liste générale
             if (document.getElementById('downloadLink_s3-' + document_id))
                 {
-                    document.getElementById('downloadLink_s3-' + document_id).innerHTML = '<strong>' + document_name + '</strong>';
+                    document.getElementById('downloadLink_s3-' + document_id).innerHTML = '<span class="material-icons">description</span>' + document_name;
+                    document.getElementById('downloadLink_s3-' + document_id).classList.add('text-success');
                     document.getElementById('downloadLink_s3-' + document_id).href = document_link;
                     document.getElementById('downloadLink_s3-' + document_id).setAttribute('data-toggle', '');                    
                     document.getElementById('downloadLink_s3-' + document_id).setAttribute('target', '_blank');

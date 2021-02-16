@@ -204,7 +204,7 @@ CREATE TABLE `s_general_assembly` (
 
 LOCK TABLES `s_general_assembly` WRITE;
 /*!40000 ALTER TABLE `s_general_assembly` DISABLE KEYS */;
-INSERT INTO `s_general_assembly` VALUES (6,59,'https://us04web.zoom.us/j/','6e étage droite','2021-01-10 15:30:00',46);
+INSERT INTO `s_general_assembly` VALUES (6,59,'https://us04web.zoom.us/j/123456789','6e étage droite','2021-09-10 15:30:00',46);
 /*!40000 ALTER TABLE `s_general_assembly` ENABLE KEYS */;
 UNLOCK TABLES;
 

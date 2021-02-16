@@ -1,6 +1,5 @@
 <?php $title = 'Détails copropriété'; ?>
 <?php $bodyid = 'condominiumView'; ?>
-
 <?php ob_start(); ?>
 
 
@@ -9,7 +8,7 @@
         <div class="row">
             <div class="col-sm-2">
                 <h6>Informations<br>
-d'une copropriété*&nbsp;:</h6>
+                    d'une copropriété*&nbsp;:</h6>
             </div>
             <div class="col-sm-6">
                 <h1><a class="popable" href="#" id="a-name" ><?= $condominium->name() ?></a></h1>
