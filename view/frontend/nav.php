@@ -30,7 +30,7 @@
         </ul>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">  
-                <?= isset($_SESSION['condo']) ? '<form action="index.php" method="post" class="form-inline"><button type="submit" id="deconnection" class="btn btn-link" name="deconnection">Déconnexion</button></form>' : '<a class="nav-link" href="index.php">Votre espace copro</a>' ?>
+                <?= isset($_SESSION['condo']) ? '<form action="index.php" method="post" class="form-inline"><button type="submit" id="deconnection" class="btn btn-link" name="deconnection"><span class="material-icons">logout</span>Déconnexion</button></form>' : '' ?>
             </li>
         </ul>
     </div><!--/.nav-collapse -->

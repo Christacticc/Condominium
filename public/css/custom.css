@@ -2,98 +2,19 @@
 /* CSS Document */
 
 
-@media (max-width: 767px) {
-    HTML {
-        font-size: 6.4px;
-    }
+HTML {
+    font-size: 16px;
 }
-
-@media (min-width: 768px) {
-    HTML {
-        font-size: 6.4px;
-    }
-}
-
-@media (min-width: 992px) {
-    HTML {
-        font-size: 8.3px;
-    }
-}
-
-@media (min-width: 1200px) {
-    HTML {
-        font-size: 10px;
-    }
-}
-
 BODY {
-    background-color: #E6E6E6;
     font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
-}
-@media (max-width: 360px) {
-    BODY {
-    font-size: 1.2rem;
-    }
-    P, LI {
-    font-size: 1.5rem;
-    line-height: 1.7rem;
-    }
-    H1,
-    .h1 {
-        font-size: 5rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-        line-height: 0.7em;
-        font-weight: 700;
-    }
-
-    H2,
-    .h2 {
-        font-size: 2.5rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-        font-weight: 300;
-
-    }
-
-    H3,
-    .h3 {
-        font-size: 2rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-        line-height: 0.7em;
-        font-weight: 700;
-    }
-
-
-    H4,
-    .h4 {
-        font-size: 1.5rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-    }
-
-    H5,
-    .h5 {
-        font-size: 1.3rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-    }
-
-    H6,
-    .h6 {
-        font-size: 1.1rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-    }
-
-    .super {
-        font-size: 5rem;
-        font-weight: bold;
-    }
 }
 
+@media (max-width: 768px) {
+    H1, .h1 {
+        line-height: 0.8 !important;
+        margin-bottom: 2rem;
+    }
+}
 
 A:link,
 A:visited {
@@ -103,81 +24,10 @@ A:visited {
 A {
     transition: all 500ms;
 }
-
-
-H1,
-H2,
-H3,
-H4,
-H5,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5 {
-    text-transform: uppercase;
-}
-UL {
-    padding-left: 3em;
-}
-P, LI {
-    font-size: 1.7rem;
-}
-H1,
-.h1 {
-    font-size: 5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 0.9em;
-    font-weight: 700;
-}
-
-H2,
-.h2 {
-    font-size: 3rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-    
-}
-
-H3,
-.h3 {
-    font-size: 2.2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1;
-    font-weight: 700;
-}
-
-
-H4,
-.h4 {
-    font-size: 1.8rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-H5,
-.h5 {
-    font-size: 1.4rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-H6,
-.h6 {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
 .super {
-    font-size: 6rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 300;
 }
-
-
 /*--------------------------------*/
 /* == navbar                      */
 /*--------------------------------*/
@@ -185,14 +35,28 @@ H6,
     position: relative;
     width: 15%;
 }
-
 /*--------------------------------*/
-/* == form input                      */
+/* == card                      */
 /*--------------------------------*/
 
-.form-control {
-    font-size: 1.7rem;
+.chr-card-deck-1 .card {
+    margin-left: 60px;
+    margin-right: 60px;
 }
-.btn {
-    font-size: 1.7rem;
+
+/*--------------------------------*/
+/* == bg                      */
+/*--------------------------------*/
+
+.condo-bg-dark-transp {
+    background-color: rgba(52, 58, 64, 0.4);
+}
+
+/*--------------------------------*/
+/* == material-icons                      */
+/*--------------------------------*/
+span.material-icons,
+span.material-icons-outlined {
+    vertical-align: middle;
+    margin-right: 5px;
 }
