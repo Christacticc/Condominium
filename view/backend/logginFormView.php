@@ -9,11 +9,11 @@
             <p><?php if (isset($msg)){ echo($msg);} ?></p>
             <form action="#" method="post"  class="needs-validation" novalidate>
                 <div class="form-group">
-                    <label for="username">Nom d'utilisateur</label>
+                    <label for="username">Nom d'utilisateur (admin ou user)</label>
                     <input type="text" class="form-control" id="username" name="username" <?php if (isset($remember_user)){ echo('value="'.$remember_user.'"');} ?>  required>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Mot de passe</label>
+                    <label for="pwd">Mot de passe (0000)</label>
                     <input type="password" class="form-control"  id="pwd" name="pwd"  required>
                 </div>
                 <div class="custom-control custom-checkbox mb-3">

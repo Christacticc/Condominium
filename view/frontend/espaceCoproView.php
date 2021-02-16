@@ -52,8 +52,15 @@ else
 ?>
                 </div>
                 <div class="col-sm-4">
+            <?php
+if ($general_assembly)
+{
+?>                    
                     <p><span class="material-icons">place</span><strong>Venez y participer sur place&nbsp;:</strong></p>
                     <p><?= $general_assembly && $general_assembly->address_1() != '' ? $general_assembly->address_1() . '<br>' : '' ?><?= $general_assembly && $general_assembly->address_2() != '' ? $general_assembly->address_2() . '<br>' : '' ?><?= $general_assembly ? $general_assembly->postal_code() . '<br>' : '' ?><?= $general_assembly ? $general_assembly->city() : '' ?><?= $general_assembly && $general_assembly->room() != '' ? '<br>' . $general_assembly->room() : '' ?></p>
+            <?php
+}
+?>
                 </div>
                 <div class="col-sm-4">
             <?php
@@ -153,7 +160,7 @@ else
             </div>
         </div>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="fiche">
             <?php                        
 if ($fiche && $fiche->name() != '')
 {
@@ -162,13 +169,13 @@ if ($fiche && $fiche->name() != '')
     if ($fiche->tracked() == 1)
     {        
 ?>
-            <a class="icone-link" id="downloadLink_s1-<?= $fiche->id() ?>" href="#downloadFormDiv_s1-<?= $fiche->id() ?>" data-toggle="modal"><span class="material-icons">description</span>Fiche synthétique de la copropriété au <?= preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', '$3/$2/$1', $fiche->creation_time()) ?>&nbsp;<span class="material-icons" style="font-size: 16px">alternate_email</span></a>
+            <a id="downloadLink_s1-<?= $fiche->id() ?>" href="#downloadFormDiv_s1-<?= $fiche->id() ?>" data-toggle="modal"><span class="material-icons">description</span>Fiche synthétique de la copropriété au <?= preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', '$3/$2/$1', $fiche->creation_time()) ?>&nbsp;<span class="material-icons" style="font-size: 16px">alternate_email</span></a>
             <?php
     }
     else
     {
 ?>
-            <a class="icone-link" href="<?= $pdfdownload_dir . $fiche->file_name() ?>" target="_blank"><span class="material-icons">description</span>Fiche synthétique de la copropriété au <?= preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', '$3/$2/$1', $fiche->creation_time()) ?></a>
+            <a href="<?= $pdfdownload_dir . $fiche->file_name() ?>" target="_blank"><span class="material-icons">description</span>Fiche synthétique de la copropriété au <?= preg_replace('#^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$#', '$3/$2/$1', $fiche->creation_time()) ?></a>
             <?php
     }
 }
@@ -265,7 +272,7 @@ if (!empty($documents))
 }       
 ?>
         </div>
-        <div class="card d-none d-md-flex" <?= $photos[1] ? ' style="background-image: url(\'' . $phodownload_dir . $photos[1]->file_name() . '\'); background-size:cover; background-position: 50%; background-repeat: no-repeat"' : '' ?>>
+        <div class="card d-none d-md-flex" <?= $photos[1] ? ' style="background-image: url(\'' . $phodownload_dir . $photos[1]->file_name() . '\'); background-size:cover; background-position: 50%; background-repeat: no-repeat; min-height:240px;"' : '' ?>>
         </div>
     </div>
 <br><br>

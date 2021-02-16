@@ -42,6 +42,12 @@ elseif (isset($_GET['password']) && $_GET['password'] == 1)
 }
 else
 {
+    if (isset($_SESSION['condominium'])) // Si l'on vient de l'admin
+    {
+    $condominium = $_SESSION['condominium'];
+    $_SESSION['condo'] = $condominium->id();
+    }
+    
     if (isset($_SESSION['condo'])) // Si la session perso existe, on restaure l'objet.
     {
         $categoryManager = new CategoryManager($db);
