@@ -1,5 +1,24 @@
 # Condominium
 
+Condominium permet au syndic professionnel de mettre les informations et documents de la copropriété à la disposition des copropriétaires sur un espace web dédié.
+
+Si vous êtes syndic de copropriété professionnel, l'application Condominium est faite pour vous.
+Elle vous permet d'administrer un "espace copropriétaire" sous forme d'une page web qui peut être intégrée à votre site Internet.
+
+Au moyen d'une plateforme d'administration simple et complète, vous y mettez les informations permanentes et temporaires de toutes les copropriétés que vous gérez, des photos, un agenda.
+Vous y uploadez les documents financiers, juridiques et techniques qui seront disponibles en téléchargement.
+Vous y mettez également les informations nécessaires pour rejoindre la prochaine assemblée générale, physiquement ou par web-conférence.  
+
+Accès simplifié :
+Vous ne souhaitez pas que cet espace copropriétaire soit intégré à votre ERP, ni devoir gérer les accès copropriétaires individuellement : 
+L' accès à l'espace copropriétaire se fait simplement avec le nom de la copropriété et un mot de passe commun à ses copropriétaires.
+
+La démonstration en ligne est en accès libre ici: 
+http://tacticc.com/Condominium/admin/index.php
+
+Contact : christophe.ribault@tacticc.tech
+
+
 Migration v1.0.0 à v1.1.0
 
 0) Prévenir le client
